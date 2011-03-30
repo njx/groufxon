@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+        xmlns:s="library://ns.adobe.com/flex/spark"               
+        xmlns:deals="services.deals.*"
+        initialize="initializeHandler(event)">
+    <!--
+    TODO:
+    add fault handler to Deals service
+    set iconWidth/iconHeight (and/or use placeholder image w/correct size)
+    -->
+    
+    <fx:Declarations>
+        <s:CallResponder id="getDataResult"/>
+        <deals:Deals id="deals" result="deals_resultHandler()" />
+        <!-- Place non-visual elements (e.g., services, value objects) here -->
+    </fx:Declarations>
+
+    <fx:Metadata>
+        [Event(name="change", type="spark.events.IndexChangeEvent")]
+    </fx:Metadata>
+    
+    <fx:Script>
+        <![CDATA[
+            import flash.sensors.Geolocation;
+            
+            import mx.events.FlexEvent;
+            
+            private var geoloc:Geolocation = new Geolocation();
+            
+            // Variables used to access the Groupon API
+            private var client_id:String = "aef59cde704294ebd0f5f5984649b0a0172db517";
+            private var lat:Number = 37.77136491;       // Default to coordinates of Adobe SF offics
+            private var lng:Number = -122.40096462;
+            private var radius:Number = 50;
+            private var show:String = "all";
+            
+            private function initializeHandler(event:FlexEvent):void
+            {
+                // If Geolocation is supported, use it. 
+                if (Geolocation.isSupported)
+                {
+                    geoloc.addEventListener(GeolocationEvent.UPDATE, geoloc_updateHandler);
+                }
+                else
+                {
+                    // get the deals now
+                    getDeals();
+                }
+            }
+            
+            private function geoloc_updateHandler(event:GeolocationEvent):void
+            {
+                lat = event.latitude;
+                lng = event.longitude;
+                
+                geoloc.removeEventListener(GeolocationEvent.UPDATE, geoloc_updateHandler);
+                getDeals();
+            }
+             
+            private function deals_resultHandler():void
+            {
+                if (busyIndicator)
+                {
+                    busyIndicator.visible = busyIndicator.includeInLayout = false;
+                }
+            }
+            
+            protected function getDeals():void
+            {
+                getDataResult.token = deals.getData(client_id, String(lat), String(lng), String(radius), show);
+            }
+            
+        ]]>
+    </fx:Script>
+    
+    <!-- Main list -->
+    <s:List id="list" left="0" top="0" right="0" bottom="0" dataProvider="{getDataResult.lastResult}" change="dispatchEvent(event);">
+        <s:itemRenderer>
+            <fx:Component>
+                <s:IconItemRenderer labelField="announcementTitle" messageField="title" iconField="smallImageUrl" />
+            </fx:Component>
+        </s:itemRenderer>
+    </s:List>
+
+    
+    <!-- Busy indicator -->
+    <s:Group id="busyIndicator" horizontalCenter="0" verticalCenter="0">
+        <s:BusyIndicator horizontalCenter="0" />
+        <s:Label text="Loading Local Deals..." top="30" />
+    </s:Group>
+</s:Group>
