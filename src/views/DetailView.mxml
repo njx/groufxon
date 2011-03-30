@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+        xmlns:s="library://ns.adobe.com/flex/spark" title="{data.announcementTitle}">
+    <fx:Script>
+        <![CDATA[
+            import spark.components.supportClasses.StyleableTextField;
+            
+            private function pitch_creationCompleteHandler(event:Event):void
+            {
+                if (data)
+                {
+                    StyleableTextField(pitch.textDisplay).htmlText = data.pitchHtml;
+                    
+                    // Force a text re-measure
+                    StyleableTextField(pitch.textDisplay).width = StyleableTextField(pitch.textDisplay).width; 
+                    pitch.skin.invalidateSize();
+                }
+            }
+        ]]>
+    </fx:Script>
+    <s:Scroller width="100%" height="100%">
+        
+        <s:VGroup paddingLeft="15" paddingTop="15" paddingRight="15" paddingBottom="15" width="100%">
+            <s:Label text="{data.title}" fontSize="24" fontWeight="bold" width="100%" />
+            <s:Label text="Ends At: {data.endAt}" />
+            <s:Label text="{data.soldQuantity} bought so far" />
+            <s:BitmapImage source="{data.largeImageUrl}" maxWidth="{pitch.width}" scaleMode="letterbox" />
+            <s:Label text="{data.merchant.name}" />
+            <s:TextArea id="pitch" width="100%" editable="false" selectable="false" paddingLeft="0" paddingTop="0" paddingRight="0" paddingBottom="0"
+                        borderVisible="false" contentBackgroundColor="0xFFFFFF"
+                        text="{data.pitchHtml}" creationComplete="pitch_creationCompleteHandler(event)" />
+        </s:VGroup>
+    </s:Scroller>
+</s:View>
