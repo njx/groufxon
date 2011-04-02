@@ -2,11 +2,12 @@
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
         xmlns:s="library://ns.adobe.com/flex/spark"               
         xmlns:deals="services.deals.*"
-        initialize="initializeHandler(event)">
+        initialize="initializeHandler(event)"
+		currentState="listPhone">
     <!--
     TODO:
     add fault handler to Deals service
-    set iconWidth/iconHeight (and/or use placeholder image w/correct size)
+	make label size smaller on phone
     -->
     
     <fx:Declarations>
@@ -18,13 +19,22 @@
     <fx:Metadata>
         [Event(name="change", type="spark.events.IndexChangeEvent")]
     </fx:Metadata>
+	
+	<s:states>
+		<s:State name="listPhone" stateGroups="list"/>
+		<s:State name="listTablet" stateGroups="list"/>
+		<s:State name="grid"/>
+	</s:states>
     
     <fx:Script>
         <![CDATA[
-            import flash.sensors.Geolocation;
-            
-            import mx.events.FlexEvent;
-            
+			import flash.sensors.Geolocation;
+			
+			import mx.collections.IList;
+			import mx.events.FlexEvent;
+			
+			import spark.events.IndexChangeEvent;
+			
             private var geoloc:Geolocation = new Geolocation();
             
             // Variables used to access the Groupon API
@@ -33,6 +43,15 @@
             private var lng:Number = -122.40096462;
             private var radius:Number = 50;
             private var show:String = "all";
+			
+			public function refresh(): void {
+				if (busyIndicator)
+				{
+					busyIndicator.visible = busyIndicator.includeInLayout = true;
+				}
+				list.dataProvider = null;
+				getDeals();
+			}
             
             private function initializeHandler(event:FlexEvent):void
             {
@@ -44,7 +63,7 @@
                 else
                 {
                     // get the deals now
-                    getDeals();
+                    refresh();
                 }
             }
             
@@ -63,6 +82,12 @@
                 {
                     busyIndicator.visible = busyIndicator.includeInLayout = false;
                 }
+
+				// Select the first deal so the user isn't starting at empty space.
+				if (currentState != 'listPhone' && IList(getDataResult.lastResult).length > 0) {
+					list.selectedIndex = 0;
+					dispatchEvent(new IndexChangeEvent(IndexChangeEvent.CHANGE));
+				}
             }
             
             protected function getDeals():void
@@ -75,12 +100,52 @@
     
     <!-- Main list -->
     <s:List id="list" left="0" top="0" right="0" bottom="0" dataProvider="{getDataResult.lastResult}" change="dispatchEvent(event);">
-        <s:itemRenderer>
+		<s:layout.grid>
+			<s:TileLayout/>
+		</s:layout.grid>
+        <s:itemRenderer.listTablet>
             <fx:Component>
-                <s:IconItemRenderer labelField="announcementTitle" messageField="title" iconField="smallImageUrl" />
+                <s:IconItemRenderer labelField="announcementTitle" messageField="title" 
+									iconField="mediumImageUrl" iconWidth="100" iconHeight="61"
+									iconPlaceholder="{assets.LoadingIcon}">
+					<fx:Script>
+						<![CDATA[
+							import assets.LoadingIcon;
+						]]>
+					</fx:Script>
+				</s:IconItemRenderer>
+
             </fx:Component>
-        </s:itemRenderer>
-    </s:List>
+        </s:itemRenderer.listTablet>
+		<s:itemRenderer.listPhone>
+			<fx:Component>
+				<s:IconItemRenderer labelField="announcementTitle" messageField="title" 
+									iconField="smallImageUrl" iconWidth="50" iconHeight="30"
+									iconPlaceholder="{assets.LoadingIcon}">
+					<fx:Script>
+						<![CDATA[
+							import assets.LoadingIcon;
+						]]>
+					</fx:Script>
+				</s:IconItemRenderer>
+				
+			</fx:Component>
+		</s:itemRenderer.listPhone>
+		<s:itemRenderer.grid>
+			<fx:Component>
+				<s:IconItemRenderer labelField=""
+									iconField="mediumImageUrl" iconWidth="100" iconHeight="61"
+									iconPlaceholder="{assets.LoadingIcon}">
+					<fx:Script>
+						<![CDATA[
+							import assets.LoadingIcon;
+						]]>
+					</fx:Script>
+				</s:IconItemRenderer>
+				
+			</fx:Component>
+		</s:itemRenderer.grid>    
+	</s:List>
 
     
     <!-- Busy indicator -->

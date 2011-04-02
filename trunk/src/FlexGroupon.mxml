@@ -6,7 +6,7 @@
                applicationDPI="160" 
                xmlns:components="components.*">
  
- 
+ 	<fx:Style source="assets/styles.css"/>
     <fx:Script>
         <![CDATA[           
             import mx.events.ResizeEvent;
@@ -15,7 +15,8 @@
  
             // Coordinates
             private const LIST_WIDTH:Number = 400;  // Width of list in Tablet Landscape orientation
-            private const LIST_HEIGHT:Number = 300; // Height of list in Tablet Portrait orientation
+            private const LIST_HEIGHT:Number = 250; // Height of list in Tablet Portrait orientation
+			private const ACTIONBAR_HEIGHT: Number = 46;
 
             private function initializeHandler(event:Event):void
             {
@@ -61,17 +62,45 @@
         <s:State name="landscapePhone" stateGroups="landscape, phone" />
     </s:states>
     
-    <!-- Deal summary list -->
-    <components:SummaryList id="dealSummaryList" includeIn="tablet" top="0" left="0" 
-            bottom.landscapeTablet="0" right.portraitTablet="0" 
-            width.landscapeTablet="{LIST_WIDTH}" height.portraitTablet="{LIST_HEIGHT}"
-            change="mainNavigator.replaceView(views.DetailView, dealSummaryList.list.selectedItem)"/>
-    
     <!-- ViewNavigator -->
     <s:ViewNavigator id="mainNavigator" left="0" left.landscapeTablet="{LIST_WIDTH}" 
-                     top="0" top.portraitTablet="{LIST_HEIGHT}" 
-                     right="0" bottom="0" 
+                     top="0" top.portraitTablet="{ACTIONBAR_HEIGHT + LIST_HEIGHT}" 
+                     right="0" bottom="0"
                      firstView="views.SummaryView" firstView.tablet="views.DetailView"
                      resize="mainNavigator.scrollRect = new Rectangle(0, 0, mainNavigator.width, mainNavigator.height)">  
     </s:ViewNavigator>
+	
+	<!-- Deal summary list -->
+	<!-- This is after the ViewNavigator so that its dropshadow will draw above the ViewNavigator. If we change it to use a bitmap we
+	     can move it back to its natural position. -->
+	<s:ActionBar includeIn="tablet" top="0" left="0" right.portraitTablet="0" width.landscapeTablet="{LIST_WIDTH}" title="Groupon Deals">
+		<s:actionContent>
+			<s:Button click="dealSummaryList.refresh()">
+				<s:icon>
+					<s:MultiDPIBitmapSource
+						source160dpi="@Embed('assets/refresh160.png')"
+						source240dpi="@Embed('assets/refresh240.png')"
+						source320dpi="@Embed('assets/refresh320.png')"/>
+				</s:icon>
+			</s:Button>
+		</s:actionContent>
+	</s:ActionBar>
+	<components:SummaryList id="dealSummaryList" includeIn="tablet" top="{ACTIONBAR_HEIGHT}" left="0" 
+							bottom.landscapeTablet="0" right.portraitTablet="0" 
+							width.landscapeTablet="{LIST_WIDTH}" height.portraitTablet="{LIST_HEIGHT}"
+							change="mainNavigator.replaceView(views.DetailView, dealSummaryList.list.selectedItem)"
+							currentState="{currentState == 'portraitTablet' ? 'grid' : (currentState == 'landscapeTablet' ? 'listTablet' : 'listPhone')}">
+		<components:filters>
+			<s:DropShadowFilter angle.landscapeTablet="0" blurX.landscapeTablet="4" blurY.landscapeTablet="0" 
+								angle.portraitTablet="90" blurX.portraitTablet="0" blurY.portraitTablet="4"
+								strength="1" alpha="0.3"/>
+		</components:filters>
+	</components:SummaryList>
+	
+	<!-- Vertical separator between summary list and view navigator in tablet landscape mode -->
+	<s:Line includeIn="landscapeTablet" top="0" bottom="0" left="{LIST_WIDTH}">
+		<s:stroke>
+			<s:SolidColorStroke color="#666666"/>
+		</s:stroke>
+	</s:Line>
 </s:Application>
