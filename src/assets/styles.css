@@ -1,0 +1,23 @@
+@namespace "library://ns.adobe.com/flex/spark";
+
+IconItemRenderer {
+	messageStyleName: message;
+	verticalGap: 8px;
+}
+
+.message {
+	color: #666666;
+	fontSize: 12px;
+}
+
+ActionBar {
+	chromeColor: #89b556;
+}
+
+@media (os-platform: "ios") {
+	ActionBar {
+		defaultButtonAppearance: "beveled";
+		titleAlign: "center";
+	}
+}
+
