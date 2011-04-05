@@ -8,6 +8,7 @@
     TODO:
     add fault handler to Deals service
 	make label size smaller on phone
+	Ugly code for item renderers based on state. can we improve this? (maybe use bitmap for placeholder)
     -->
     
     <fx:Declarations>
@@ -101,11 +102,11 @@
     <!-- Main list -->
     <s:List id="list" left="0" top="0" right="0" bottom="0" dataProvider="{getDataResult.lastResult}" change="dispatchEvent(event);">
 		<s:layout.grid>
-			<s:TileLayout/>
+			<s:TileLayout paddingLeft="5" paddingTop="5" paddingRight="5" paddingBottom="5"/>
 		</s:layout.grid>
         <s:itemRenderer.listTablet>
             <fx:Component>
-                <s:IconItemRenderer labelField="announcementTitle" messageField="title" 
+                <s:IconItemRenderer styleName="summary" labelField="" messageField="announcementTitle" 
 									iconField="mediumImageUrl" iconWidth="100" iconHeight="61"
 									iconPlaceholder="{assets.LoadingIcon}">
 					<fx:Script>
@@ -119,7 +120,7 @@
         </s:itemRenderer.listTablet>
 		<s:itemRenderer.listPhone>
 			<fx:Component>
-				<s:IconItemRenderer labelField="announcementTitle" messageField="title" 
+				<s:IconItemRenderer styleName="summary" labelField="" messageField="announcementTitle" 
 									iconField="smallImageUrl" iconWidth="50" iconHeight="30"
 									iconPlaceholder="{assets.LoadingIcon}">
 					<fx:Script>
@@ -133,7 +134,7 @@
 		</s:itemRenderer.listPhone>
 		<s:itemRenderer.grid>
 			<fx:Component>
-				<s:IconItemRenderer labelField=""
+				<s:IconItemRenderer styleName="summary" labelField=""
 									iconField="mediumImageUrl" iconWidth="100" iconHeight="61"
 									iconPlaceholder="{assets.LoadingIcon}">
 					<fx:Script>
@@ -151,6 +152,6 @@
     <!-- Busy indicator -->
     <s:Group id="busyIndicator" horizontalCenter="0" verticalCenter="0">
         <s:BusyIndicator horizontalCenter="0" />
-        <s:Label text="Loading Local Deals..." top="30" />
+        <s:Label text="Loading Nearby Deals..." top="30" />
     </s:Group>
 </s:Group>

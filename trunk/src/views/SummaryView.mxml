@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
-        xmlns:s="library://ns.adobe.com/flex/spark" title="Nearby Deals" xmlns:components="components.*" destructionPolicy="never">
-    <s:actionContent>
+<views:PlatformSwitchingView xmlns:fx="http://ns.adobe.com/mxml/2009" 
+        xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:views="views.*"
+		xmlns:components="components.*" 
+		title="Nearby Deals" 
+		destructionPolicy="never"
+		viewActivate="list.list.selectedItem = null">
+    <views:actionContent>
 		<s:Button click="list.refresh()">
 			<s:icon>
 				<s:MultiDPIBitmapSource
@@ -10,7 +15,7 @@
 					source320dpi="@Embed('assets/refresh320.png')"/>
 			</s:icon>
 		</s:Button>
-	</s:actionContent>
+	</views:actionContent>
     <components:SummaryList id="list" left="0" top="0" right="0" bottom="0"
                             change="navigator.pushView(views.DetailView, list.list.selectedItem)" />
-</s:View>
+</views:PlatformSwitchingView>

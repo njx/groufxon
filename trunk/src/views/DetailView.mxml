@@ -1,10 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
-        xmlns:s="library://ns.adobe.com/flex/spark" title="{data.announcementTitle}">
+<views:PlatformSwitchingView xmlns:fx="http://ns.adobe.com/mxml/2009" 
+        xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:views="views.*" 
+		title=""
+		viewDeactivate="handleViewDeactivate()">
+	<!-- TODO: How to deal with image load?
+		 * load image before push?
+		 * set different states for phone/portrait vs. others so that we can size it down in portrait, but use fixed full size in other cases
+	-->
     <fx:Script>
         <![CDATA[
-            import spark.components.supportClasses.StyleableTextField;
+			import flash.net.navigateToURL;
+			
+			import mx.utils.StringUtil;
+			
+			import services.deals.Deals;
+			
+			import spark.components.supportClasses.StyleableTextField;
+			import spark.transitions.FlipViewTransition;
+			import spark.transitions.FlipViewTransitionMode;
+			
+			import valueObjects.Deal;
             
+			private var _timer: Timer;
+			
             private function pitch_creationCompleteHandler(event:Event):void
             {
                 if (data)
@@ -16,19 +35,110 @@
                     pitch.skin.invalidateSize();
                 }
             }
+			
+			private function isoToDate(value:String):Date {
+				var dateStr:String = value;
+				dateStr = dateStr.replace(/\-/g, "/");
+				dateStr = dateStr.replace("T", " ");
+				dateStr = dateStr.replace("Z", " GMT-0000");
+				return new Date(Date.parse(dateStr));
+			}
+			
+			override public function set data(value: Object): void {
+				super.data = value;
+				if (value != null) {
+					updateTitle(null);
+					
+					if (_timer == null) {
+						_timer = new Timer(getTimeRemaining() < 86400 ? 1000 : 60000);
+						_timer.addEventListener(TimerEvent.TIMER, updateTitle);
+						_timer.start();
+					}
+				}
+			}			
+			
+			private function getTimeRemaining(): int {
+				var endDate: Date = isoToDate(data.endAt);
+				return (endDate.getTime() - new Date().getTime()) / 1000;
+			}
+
+			private function handleViewDeactivate(): void {
+				if (_timer != null) {
+					_timer.stop();
+					_timer = null;
+				}
+			}
+			
+			private function updateTitle(event: TimerEvent): void {
+				var timeRemaining: int = getTimeRemaining();
+				var daysLeft: int = timeRemaining / 86400;
+				var hoursLeft: int = (timeRemaining % 86400) / 3600;
+				var minutesLeft: int = (timeRemaining % 3600) / 60;
+				var secondsLeft: int = timeRemaining % 60;
+				
+				var result: String = "Ends in: "
+				if (daysLeft == 0) {
+					result += twodigit(hoursLeft) + "h " + twodigit(minutesLeft) + "m " + twodigit(secondsLeft) + "s";
+				}
+				else {
+					result += twodigit(daysLeft) + "d " + twodigit(hoursLeft) + "h " + twodigit(minutesLeft) + "m";
+				}
+				title = result;
+			}
+			
+			private function twodigit(value: Number): String {
+				if (value < 10) {
+					return "0" + value.toString();
+				}
+				else {
+					return value.toString();
+				}
+			}
+			
+			private function handleBuyClick(): void {
+				if (data != null)
+					navigateToURL(new URLRequest(data.options.option.buyUrl));
+			}
+			
+			private function handleDiscussClick(): void {
+				navigator.pushView(DiscussionView, data.id);
+			}
         ]]>
     </fx:Script>
+	<views:states>
+		<s:State name="androidPhone" stateGroups="phone"/>
+		<s:State name="androidTablet" stateGroups="tablet"/>
+		<s:State name="iosPhone" stateGroups="phone"/>
+		<s:State name="iosTablet" stateGroups="tablet"/>
+		<s:State name="playbookTablet" stateGroups="tablet"/>
+	</views:states>
+	<views:navigationContent>
+		<s:Button includeIn="iosPhone" label="Back" click="handleBackClick()"/>
+	</views:navigationContent>
+	<views:actionContent>
+		<s:Button label="Buy" click="handleBuyClick()"/>
+	</views:actionContent>
     <s:Scroller width="100%" height="100%">
-        
-        <s:VGroup paddingLeft="15" paddingTop="15" paddingRight="15" paddingBottom="15" width="100%">
-            <s:Label text="{data.title}" fontSize="24" fontWeight="bold" width="100%" />
-            <s:Label text="Ends At: {data.endAt}" />
-            <s:Label text="{data.soldQuantity} bought so far" />
-            <s:BitmapImage source="{data.largeImageUrl}" maxWidth="{pitch.width}" scaleMode="letterbox" />
-            <s:Label text="{data.merchant.name}" />
-            <s:TextArea id="pitch" width="100%" editable="false" selectable="false" paddingLeft="0" paddingTop="0" paddingRight="0" paddingBottom="0"
-                        borderVisible="false" contentBackgroundColor="0xFFFFFF"
-                        text="{data.pitchHtml}" creationComplete="pitch_creationCompleteHandler(event)" />
+        <s:VGroup width="100%" gap="0">
+			<s:Group width="100%">
+				<s:Rect width="100%" height="100%">
+					<s:fill>
+						<s:LinearGradient rotation="90">
+							<s:GradientEntry color="#41aed7" ratio="0"/>
+							<s:GradientEntry color="#277793" ratio="1"/>
+						</s:LinearGradient>
+					</s:fill>
+				</s:Rect>
+				<s:Label text="{data.title}" styleName="detailTitle" left="15" right="15" top="15" bottom="45" />
+				<s:Label text="{data.soldQuantity} bought so far" styleName="detailBar" left="15" right="15" bottom="15"/>				
+				<s:Button right="5" bottom="7" label="Discuss" styleName="discussButton" height="30" minHeight="30" click="handleDiscussClick()"/>
+			</s:Group>
+			<s:VGroup width="100%" paddingLeft="15" paddingTop="15" paddingRight="15" paddingBottom="15" horizontalAlign="center">
+	            <s:Image source="{data.largeImageUrl}" maxWidth.phone="{pitch.width}" height.phone="{width * 267 / 440}" width.tablet="440" height.tablet="267" enableLoadingState="true"/>
+	            <s:TextArea id="pitch" width="100%" editable="false" selectable="false" paddingLeft="0" paddingTop="0" paddingRight="0" paddingBottom="0"
+	                        borderVisible="false" contentBackgroundColor="0xFFFFFF"
+	                        text="{data.pitchHtml}" creationComplete="pitch_creationCompleteHandler(event)" />				
+			</s:VGroup>
         </s:VGroup>
     </s:Scroller>
-</s:View>
+</views:PlatformSwitchingView>

@@ -9,9 +9,11 @@
  	<fx:Style source="assets/styles.css"/>
     <fx:Script>
         <![CDATA[           
-            import mx.events.ResizeEvent;
-            
-            import views.DetailView;
+			import mx.events.ResizeEvent;
+			
+			import spark.transitions.CrossFadeViewTransition;
+			
+			import views.DetailView;
  
             // Coordinates
             private const LIST_WIDTH:Number = 400;  // Width of list in Tablet Landscape orientation
@@ -88,7 +90,7 @@
 	<components:SummaryList id="dealSummaryList" includeIn="tablet" top="{ACTIONBAR_HEIGHT}" left="0" 
 							bottom.landscapeTablet="0" right.portraitTablet="0" 
 							width.landscapeTablet="{LIST_WIDTH}" height.portraitTablet="{LIST_HEIGHT}"
-							change="mainNavigator.replaceView(views.DetailView, dealSummaryList.list.selectedItem)"
+							change="mainNavigator.replaceView(views.DetailView, dealSummaryList.list.selectedItem, null, new CrossFadeViewTransition())"
 							currentState="{currentState == 'portraitTablet' ? 'grid' : (currentState == 'landscapeTablet' ? 'listTablet' : 'listPhone')}">
 		<components:filters>
 			<s:DropShadowFilter angle.landscapeTablet="0" blurX.landscapeTablet="4" blurY.landscapeTablet="0" 
