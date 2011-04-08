@@ -53,10 +53,10 @@ public class _Super_Division extends flash.events.EventDispatcher implements com
      */
     private var _internal_lng : String;
     private var _internal_timezone : String;
-    private var _internal_timezoneOffsetInSeconds : String;
     private var _internal_name : String;
     private var _internal_id : String;
     private var _internal_lat : String;
+    private var _internal_timezoneOffsetInSeconds : String;
 
     private static var emptyArray:Array = new Array();
 
@@ -75,10 +75,10 @@ public class _Super_Division extends flash.events.EventDispatcher implements com
         // Bind to own data or source properties for cache invalidation triggering
         model_internal::_changeWatcherArray.push(mx.binding.utils.ChangeWatcher.watch(this, "lng", model_internal::setterListenerLng));
         model_internal::_changeWatcherArray.push(mx.binding.utils.ChangeWatcher.watch(this, "timezone", model_internal::setterListenerTimezone));
-        model_internal::_changeWatcherArray.push(mx.binding.utils.ChangeWatcher.watch(this, "timezoneOffsetInSeconds", model_internal::setterListenerTimezoneOffsetInSeconds));
         model_internal::_changeWatcherArray.push(mx.binding.utils.ChangeWatcher.watch(this, "name", model_internal::setterListenerName));
         model_internal::_changeWatcherArray.push(mx.binding.utils.ChangeWatcher.watch(this, "id", model_internal::setterListenerId));
         model_internal::_changeWatcherArray.push(mx.binding.utils.ChangeWatcher.watch(this, "lat", model_internal::setterListenerLat));
+        model_internal::_changeWatcherArray.push(mx.binding.utils.ChangeWatcher.watch(this, "timezoneOffsetInSeconds", model_internal::setterListenerTimezoneOffsetInSeconds));
 
     }
 
@@ -99,12 +99,6 @@ public class _Super_Division extends flash.events.EventDispatcher implements com
     }
 
     [Bindable(event="propertyChange")]
-    public function get timezoneOffsetInSeconds() : String
-    {
-        return _internal_timezoneOffsetInSeconds;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get name() : String
     {
         return _internal_name;
@@ -120,6 +114,12 @@ public class _Super_Division extends flash.events.EventDispatcher implements com
     public function get lat() : String
     {
         return _internal_lat;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get timezoneOffsetInSeconds() : String
+    {
+        return _internal_timezoneOffsetInSeconds;
     }
 
     public function clearAssociations() : void
@@ -147,16 +147,6 @@ public class _Super_Division extends flash.events.EventDispatcher implements com
         {
             _internal_timezone = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "timezone", oldValue, _internal_timezone));
-        }
-    }
-
-    public function set timezoneOffsetInSeconds(value:String) : void
-    {
-        var oldValue:String = _internal_timezoneOffsetInSeconds;
-        if (oldValue !== value)
-        {
-            _internal_timezoneOffsetInSeconds = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "timezoneOffsetInSeconds", oldValue, _internal_timezoneOffsetInSeconds));
         }
     }
 
@@ -190,6 +180,16 @@ public class _Super_Division extends flash.events.EventDispatcher implements com
         }
     }
 
+    public function set timezoneOffsetInSeconds(value:String) : void
+    {
+        var oldValue:String = _internal_timezoneOffsetInSeconds;
+        if (oldValue !== value)
+        {
+            _internal_timezoneOffsetInSeconds = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "timezoneOffsetInSeconds", oldValue, _internal_timezoneOffsetInSeconds));
+        }
+    }
+
     /**
      * Data/source property setter listeners
      *
@@ -212,11 +212,6 @@ public class _Super_Division extends flash.events.EventDispatcher implements com
         _model.invalidateDependentOnTimezone();
     }
 
-    model_internal function setterListenerTimezoneOffsetInSeconds(value:flash.events.Event):void
-    {
-        _model.invalidateDependentOnTimezoneOffsetInSeconds();
-    }
-
     model_internal function setterListenerName(value:flash.events.Event):void
     {
         _model.invalidateDependentOnName();
@@ -230,6 +225,11 @@ public class _Super_Division extends flash.events.EventDispatcher implements com
     model_internal function setterListenerLat(value:flash.events.Event):void
     {
         _model.invalidateDependentOnLat();
+    }
+
+    model_internal function setterListenerTimezoneOffsetInSeconds(value:flash.events.Event):void
+    {
+        _model.invalidateDependentOnTimezoneOffsetInSeconds();
     }
 
 
@@ -263,11 +263,6 @@ public class _Super_Division extends flash.events.EventDispatcher implements com
             propertyValidity = false;
             com.adobe.fiber.util.FiberUtils.arrayAdd(validationFailureMessages, _model.model_internal::_timezoneValidationFailureMessages);
         }
-        if (!_model.timezoneOffsetInSecondsIsValid)
-        {
-            propertyValidity = false;
-            com.adobe.fiber.util.FiberUtils.arrayAdd(validationFailureMessages, _model.model_internal::_timezoneOffsetInSecondsValidationFailureMessages);
-        }
         if (!_model.nameIsValid)
         {
             propertyValidity = false;
@@ -282,6 +277,11 @@ public class _Super_Division extends flash.events.EventDispatcher implements com
         {
             propertyValidity = false;
             com.adobe.fiber.util.FiberUtils.arrayAdd(validationFailureMessages, _model.model_internal::_latValidationFailureMessages);
+        }
+        if (!_model.timezoneOffsetInSecondsIsValid)
+        {
+            propertyValidity = false;
+            com.adobe.fiber.util.FiberUtils.arrayAdd(validationFailureMessages, _model.model_internal::_timezoneOffsetInSecondsValidationFailureMessages);
         }
 
         model_internal::_cacheInitialized_isValid = true;
@@ -416,33 +416,6 @@ public class _Super_Division extends flash.events.EventDispatcher implements com
         return validationFailures;
     }
     
-    model_internal var _doValidationCacheOfTimezoneOffsetInSeconds : Array = null;
-    model_internal var _doValidationLastValOfTimezoneOffsetInSeconds : String;
-
-    model_internal function _doValidationForTimezoneOffsetInSeconds(valueIn:Object):Array
-    {
-        var value : String = valueIn as String;
-
-        if (model_internal::_doValidationCacheOfTimezoneOffsetInSeconds != null && model_internal::_doValidationLastValOfTimezoneOffsetInSeconds == value)
-           return model_internal::_doValidationCacheOfTimezoneOffsetInSeconds ;
-
-        _model.model_internal::_timezoneOffsetInSecondsIsValidCacheInitialized = true;
-        var validationFailures:Array = new Array();
-        var errorMessage:String;
-        var failure:Boolean;
-
-        var valRes:ValidationResult;
-        if (_model.isTimezoneOffsetInSecondsAvailable && _internal_timezoneOffsetInSeconds == null)
-        {
-            validationFailures.push(new ValidationResult(true, "", "", "timezoneOffsetInSeconds is required"));
-        }
-
-        model_internal::_doValidationCacheOfTimezoneOffsetInSeconds = validationFailures;
-        model_internal::_doValidationLastValOfTimezoneOffsetInSeconds = value;
-
-        return validationFailures;
-    }
-    
     model_internal var _doValidationCacheOfName : Array = null;
     model_internal var _doValidationLastValOfName : String;
 
@@ -520,6 +493,33 @@ public class _Super_Division extends flash.events.EventDispatcher implements com
 
         model_internal::_doValidationCacheOfLat = validationFailures;
         model_internal::_doValidationLastValOfLat = value;
+
+        return validationFailures;
+    }
+    
+    model_internal var _doValidationCacheOfTimezoneOffsetInSeconds : Array = null;
+    model_internal var _doValidationLastValOfTimezoneOffsetInSeconds : String;
+
+    model_internal function _doValidationForTimezoneOffsetInSeconds(valueIn:Object):Array
+    {
+        var value : String = valueIn as String;
+
+        if (model_internal::_doValidationCacheOfTimezoneOffsetInSeconds != null && model_internal::_doValidationLastValOfTimezoneOffsetInSeconds == value)
+           return model_internal::_doValidationCacheOfTimezoneOffsetInSeconds ;
+
+        _model.model_internal::_timezoneOffsetInSecondsIsValidCacheInitialized = true;
+        var validationFailures:Array = new Array();
+        var errorMessage:String;
+        var failure:Boolean;
+
+        var valRes:ValidationResult;
+        if (_model.isTimezoneOffsetInSecondsAvailable && _internal_timezoneOffsetInSeconds == null)
+        {
+            validationFailures.push(new ValidationResult(true, "", "", "timezoneOffsetInSeconds is required"));
+        }
+
+        model_internal::_doValidationCacheOfTimezoneOffsetInSeconds = validationFailures;
+        model_internal::_doValidationLastValOfTimezoneOffsetInSeconds = value;
 
         return validationFailures;
     }

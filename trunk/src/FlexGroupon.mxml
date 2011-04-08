@@ -2,10 +2,11 @@
 <s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
                xmlns:s="library://ns.adobe.com/flex/spark"
                initialize="initializeHandler(event)"
+			   applicationDPI="160"
                resize="resizeHandler(event)"
-               applicationDPI="160" 
-               xmlns:components="components.*">
- 
+               xmlns:components="components.*"
+			   resizeForSoftKeyboard="false">
+ 	<!-- TODO: splash screen, icon -->
  	<fx:Style source="assets/styles.css"/>
     <fx:Script>
         <![CDATA[           
@@ -31,15 +32,17 @@
                 var isPortrait:Boolean = height > width;
                 var isTablet:Boolean = height > 960 || width > 960;
                 
-                currentState = (isPortrait ? "portrait" : "landscape") + (isTablet ? "Tablet" : "Phone");
+               currentState = (isPortrait ? "portrait" : "landscape") + (isTablet ? "Tablet" : "Phone");
             }  
             
             private function deviceKeyDownHandler(event:KeyboardEvent):void
             {
                 var key:uint = event.keyCode;
                 
-                // We want to prevent the default down behavior for back key if 
-                // the navigator has a view to pop back to
+                // The default behavior for the back key (when it's not being handled by
+				// ViewNavigatorApplication) is to jump out of the app to the OS home screen.
+				// In our case, if we have a view to pop back to on the navigator stack, we
+				// don't want this default behavior.
                 if (key == Keyboard.BACK)
                 {
                     if (mainNavigator.length > 1)
@@ -63,18 +66,19 @@
         <s:State name="portraitPhone" stateGroups="portrait, phone" />
         <s:State name="landscapePhone" stateGroups="landscape, phone" />
     </s:states>
-    
-    <!-- ViewNavigator -->
-    <s:ViewNavigator id="mainNavigator" left="0" left.landscapeTablet="{LIST_WIDTH}" 
-                     top="0" top.portraitTablet="{ACTIONBAR_HEIGHT + LIST_HEIGHT}" 
-                     right="0" bottom="0"
-                     firstView="views.SummaryView" firstView.tablet="views.DetailView"
-                     resize="mainNavigator.scrollRect = new Rectangle(0, 0, mainNavigator.width, mainNavigator.height)">  
-    </s:ViewNavigator>
+	
+	<!-- ViewNavigator -->
+	<!-- The resize handler here is to work around a bug where ViewNavigator doesn't currently clip its children, so if
+		 it doesn't fill the whole screen, views sliding out of the navigator overlap other content. (SDK-29309) -->
+	<s:ViewNavigator id="mainNavigator" left="0" left.landscapeTablet="{LIST_WIDTH}" 
+					 top="0" top.portraitTablet="{ACTIONBAR_HEIGHT + LIST_HEIGHT}" 
+					 right="0" bottom="0"
+					 firstView="views.SummaryView" firstView.tablet="views.DetailView"
+					 resize="mainNavigator.scrollRect = new Rectangle(0, 0, mainNavigator.width, mainNavigator.height)"/>  
 	
 	<!-- Deal summary list -->
 	<!-- This is after the ViewNavigator so that its dropshadow will draw above the ViewNavigator. If we change it to use a bitmap we
-	     can move it back to its natural position. -->
+	can move it back to its natural position. -->
 	<s:ActionBar includeIn="tablet" top="0" left="0" right.portraitTablet="0" width.landscapeTablet="{LIST_WIDTH}" title="Groupon Deals">
 		<s:actionContent>
 			<s:Button click="dealSummaryList.refresh()">

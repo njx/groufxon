@@ -3,19 +3,20 @@
   <annotation name="ActionScriptGeneration">
     <item name="FullyQualifyReferences">true</item>
   </annotation>
-  <service name="Deals">
+  <service name="GrouponService">
     <annotation name="ActionScriptGeneration">
       <item name="ServiceType">HTTPMultiService</item>
-      <item name="Package">services.deals</item>
+      <item name="Package">services.grouponservice</item>
+      <item name="rootURL"></item>
     </annotation>
     <annotation name="ServiceTypeGroup">
-      <item name="ServiceBackendType">XML</item>
+      <item name="ServiceBackendType">HTTPService</item>
     </annotation>
     <annotation name="ServiceConfig">
       <item name="DEFAULT_ENTITY_PACKAGE">valueObjects</item>
       <item name="LINKED_FILE"></item>
     </annotation>
-    <function name="getData" return-type="Deal[]">
+    <function name="getDeals" return-type="DealsResult">
       <annotation name="analyze group">
         <item name="analyzed">true</item>
       </annotation>
@@ -25,12 +26,13 @@
         <item name="url">http://api.groupon.com/v2/deals.xml</item>
       </annotation>
       <annotation name="url group">
-        <item name="displayUrl">http://api.groupon.com/v2/deals.xml?client_id=aef59cde704294ebd0f5f5984649b0a0172db517&amp;lat=37.77136491&amp;lng=-122.40096462&amp;radius=50&amp;show=default</item>
-        <item name="completeURL">http://api.groupon.com/v2/deals.xml?client_id=aef59cde704294ebd0f5f5984649b0a0172db517&amp;lat=37.77136491&amp;lng=-122.40096462&amp;radius=50&amp;show=default</item>
-        <item name="isUrl">true</item>
+        <item name="completeURL">http://api.groupon.com/v2/deals.xml</item>
+      </annotation>
+      <annotation name="ValidProperties">
+        <item name="propertySpecifier">deals</item>
       </annotation>
       <annotation name="Properties">
-        <item name="xPath">/::deals/::deal</item>
+        <item name="xPath">/</item>
       </annotation>
       <annotation name="original signature">
         <item name="inputParamNames">client_id,lat,lng,radius,show</item>
@@ -43,13 +45,40 @@
       <parameter name="radius" type="string"/>
       <parameter name="show" type="string"/>
     </function>
+    <function name="getDealDiscussions" return-type="PostsResponse">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="ActionScriptGeneration">
+        <item name="SerializationFilter">com.adobe.serializers.xml.XMLSerializationFilter</item>
+        <item name="method">GET</item>
+        <item name="url">http://api.groupon.com/v2/deals/{deal_id}/posts.xml</item>
+      </annotation>
+      <annotation name="url group">
+        <item name="completeURL">http://api.groupon.com/v2/deals/{deal_id}/posts.xml</item>
+      </annotation>
+      <annotation name="ValidProperties">
+        <item name="propertySpecifier">posts</item>
+      </annotation>
+      <annotation name="Properties">
+        <item name="xPath">/</item>
+        <item name="urlParamNames">deal_id</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParamNames">deal_id,client_id</item>
+        <item name="inputParams">string,string</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+      <parameter name="deal_id" type="string"/>
+      <parameter name="client_id" type="string"/>
+    </function>
   </service>
-  <entity name="Value">
+  <entity name="Deals">
     <annotation name="EntityProperties">
-      <item name="EntityOriginalName">Value</item>
+      <item name="EntityOriginalName">Deals</item>
     </annotation>
     <annotation name="service Group">
-      <item name="service">Deals</item>
+      <item name="service">GrouponService</item>
     </annotation>
     <annotation name="ServerProperties">
       <item name="IncludeRemoteClass">nonempty</item>
@@ -57,16 +86,14 @@
     <annotation name="ActionScriptGeneration">
       <item name="Package">valueObjects</item>
     </annotation>
-    <property name="amount" type="string" required="true"/>
-    <property name="currencyCode" type="string" required="true"/>
-    <property name="formattedAmount" type="string" required="true"/>
+    <property name="deal" type="Deal[]" required="true"/>
   </entity>
   <entity name="Deal">
     <annotation name="EntityProperties">
       <item name="EntityOriginalName">Deal</item>
     </annotation>
     <annotation name="service Group">
-      <item name="service">Deals</item>
+      <item name="service">GrouponService</item>
     </annotation>
     <annotation name="ServerProperties">
       <item name="IncludeRemoteClass">nonempty</item>
@@ -108,7 +135,7 @@
       <item name="EntityOriginalName">Merchant</item>
     </annotation>
     <annotation name="service Group">
-      <item name="service">Deals</item>
+      <item name="service">GrouponService</item>
     </annotation>
     <annotation name="ServerProperties">
       <item name="IncludeRemoteClass">nonempty</item>
@@ -116,8 +143,8 @@
     <annotation name="ActionScriptGeneration">
       <item name="Package">valueObjects</item>
     </annotation>
-    <property name="websiteUrl" type="string" required="true"/>
     <property name="name" type="string" required="true"/>
+    <property name="websiteUrl" type="string" required="true"/>
     <property name="id" type="string" required="true"/>
   </entity>
   <entity name="Option">
@@ -125,7 +152,7 @@
       <item name="EntityOriginalName">Option</item>
     </annotation>
     <annotation name="service Group">
-      <item name="service">Deals</item>
+      <item name="service">GrouponService</item>
     </annotation>
     <annotation name="ServerProperties">
       <item name="IncludeRemoteClass">nonempty</item>
@@ -148,7 +175,7 @@
     <property name="maximumPurchaseQuantity" type="string" required="true"/>
     <property name="expiresAt" type="string" required="true"/>
     <property name="details" type="Details" required="true"/>
-    <property name="redemptionLocations" type="string" required="true"/>
+    <property name="redemptionLocations" type="RedemptionLocations" required="true"/>
     <property name="externalUrl" type="ExternalUrl" required="true"/>
     <property name="customFields" type="string" required="true"/>
     <property name="buyUrl" type="string" required="true"/>
@@ -158,7 +185,7 @@
       <item name="EntityOriginalName">Details</item>
     </annotation>
     <annotation name="service Group">
-      <item name="service">Deals</item>
+      <item name="service">GrouponService</item>
     </annotation>
     <annotation name="ServerProperties">
       <item name="IncludeRemoteClass">nonempty</item>
@@ -173,7 +200,7 @@
       <item name="EntityOriginalName">Area</item>
     </annotation>
     <annotation name="service Group">
-      <item name="service">Deals</item>
+      <item name="service">GrouponService</item>
     </annotation>
     <annotation name="ServerProperties">
       <item name="IncludeRemoteClass">nonempty</item>
@@ -188,7 +215,7 @@
       <item name="EntityOriginalName">Areas</item>
     </annotation>
     <annotation name="service Group">
-      <item name="service">Deals</item>
+      <item name="service">GrouponService</item>
     </annotation>
     <annotation name="ServerProperties">
       <item name="IncludeRemoteClass">nonempty</item>
@@ -198,27 +225,12 @@
     </annotation>
     <property name="area" type="Area[]" required="true"/>
   </entity>
-  <entity name="Options">
-    <annotation name="EntityProperties">
-      <item name="EntityOriginalName">Options</item>
-    </annotation>
-    <annotation name="service Group">
-      <item name="service">Deals</item>
-    </annotation>
-    <annotation name="ServerProperties">
-      <item name="IncludeRemoteClass">nonempty</item>
-    </annotation>
-    <annotation name="ActionScriptGeneration">
-      <item name="Package">valueObjects</item>
-    </annotation>
-    <property name="option" type="Option" required="true"/>
-  </entity>
   <entity name="ExternalUrl">
     <annotation name="EntityProperties">
       <item name="EntityOriginalName">ExternalUrl</item>
     </annotation>
     <annotation name="service Group">
-      <item name="service">Deals</item>
+      <item name="service">GrouponService</item>
     </annotation>
     <annotation name="ServerProperties">
       <item name="IncludeRemoteClass">nonempty</item>
@@ -228,12 +240,210 @@
     </annotation>
     <property name="nil" type="string" required="true"/>
   </entity>
+  <entity name="Detail">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">Detail</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">GrouponService</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="description" type="string" required="true"/>
+  </entity>
+  <entity name="InitialQuantity">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">InitialQuantity</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">GrouponService</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="nil" type="string" required="true"/>
+  </entity>
+  <entity name="Post">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">Post</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">GrouponService</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="body" type="string" required="true"/>
+    <property name="createdAt" type="string" required="true"/>
+    <property name="posterName" type="string" required="true"/>
+    <property name="posterAvatar" type="string" required="true"/>
+  </entity>
+  <entity name="Tag">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">Tag</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">GrouponService</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="name" type="string" required="true"/>
+  </entity>
+  <entity name="Says">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">Says</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">GrouponService</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="websiteContentHtml" type="string" required="true"/>
+    <property name="emailContentHtml" type="string" required="true"/>
+    <property name="title" type="string" required="true"/>
+    <property name="websiteContent" type="string" required="true"/>
+    <property name="id" type="string" required="true"/>
+    <property name="emailContent" type="string" required="true"/>
+  </entity>
+  <entity name="Discount">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">Discount</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">GrouponService</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="amount" type="string" required="true"/>
+    <property name="currencyCode" type="string" required="true"/>
+    <property name="formattedAmount" type="string" required="true"/>
+  </entity>
+  <entity name="RedemptionLocations">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">RedemptionLocations</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">GrouponService</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="redemptionLocation" type="RedemptionLocation" required="true"/>
+  </entity>
+  <entity name="Value">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">Value</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">GrouponService</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="amount" type="string" required="true"/>
+    <property name="currencyCode" type="string" required="true"/>
+    <property name="formattedAmount" type="string" required="true"/>
+  </entity>
+  <entity name="Posts">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">Posts</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">GrouponService</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="post" type="Post[]" required="true"/>
+  </entity>
+  <entity name="DealsResult">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">Response</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">GrouponService</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="getDeals">
+      <item name="propertySpecifier">deals</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="deals" type="Deals" required="true"/>
+  </entity>
+  <entity name="PostsResponse">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">Response</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">GrouponService</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="getDealDiscussions">
+      <item name="propertySpecifier">posts</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="posts" type="Posts" required="true"/>
+  </entity>
+  <entity name="Options">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">Options</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">GrouponService</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="option" type="Option" required="true"/>
+  </entity>
   <entity name="TextAd">
     <annotation name="EntityProperties">
       <item name="EntityOriginalName">TextAd</item>
     </annotation>
     <annotation name="service Group">
-      <item name="service">Deals</item>
+      <item name="service">GrouponService</item>
     </annotation>
     <annotation name="ServerProperties">
       <item name="IncludeRemoteClass">nonempty</item>
@@ -250,7 +460,7 @@
       <item name="EntityOriginalName">Tags</item>
     </annotation>
     <annotation name="service Group">
-      <item name="service">Deals</item>
+      <item name="service">GrouponService</item>
     </annotation>
     <annotation name="ServerProperties">
       <item name="IncludeRemoteClass">nonempty</item>
@@ -260,42 +470,12 @@
     </annotation>
     <property name="tag" type="Tag[]" required="true"/>
   </entity>
-  <entity name="Detail">
-    <annotation name="EntityProperties">
-      <item name="EntityOriginalName">Detail</item>
-    </annotation>
-    <annotation name="service Group">
-      <item name="service">Deals</item>
-    </annotation>
-    <annotation name="ServerProperties">
-      <item name="IncludeRemoteClass">nonempty</item>
-    </annotation>
-    <annotation name="ActionScriptGeneration">
-      <item name="Package">valueObjects</item>
-    </annotation>
-    <property name="description" type="string" required="true"/>
-  </entity>
-  <entity name="InitialQuantity">
-    <annotation name="EntityProperties">
-      <item name="EntityOriginalName">InitialQuantity</item>
-    </annotation>
-    <annotation name="service Group">
-      <item name="service">Deals</item>
-    </annotation>
-    <annotation name="ServerProperties">
-      <item name="IncludeRemoteClass">nonempty</item>
-    </annotation>
-    <annotation name="ActionScriptGeneration">
-      <item name="Package">valueObjects</item>
-    </annotation>
-    <property name="nil" type="string" required="true"/>
-  </entity>
   <entity name="RemainingQuantity">
     <annotation name="EntityProperties">
       <item name="EntityOriginalName">RemainingQuantity</item>
     </annotation>
     <annotation name="service Group">
-      <item name="service">Deals</item>
+      <item name="service">GrouponService</item>
     </annotation>
     <annotation name="ServerProperties">
       <item name="IncludeRemoteClass">nonempty</item>
@@ -304,48 +484,13 @@
       <item name="Package">valueObjects</item>
     </annotation>
     <property name="nil" type="string" required="true"/>
-  </entity>
-  <entity name="Says">
-    <annotation name="EntityProperties">
-      <item name="EntityOriginalName">Says</item>
-    </annotation>
-    <annotation name="service Group">
-      <item name="service">Deals</item>
-    </annotation>
-    <annotation name="ServerProperties">
-      <item name="IncludeRemoteClass">nonempty</item>
-    </annotation>
-    <annotation name="ActionScriptGeneration">
-      <item name="Package">valueObjects</item>
-    </annotation>
-    <property name="websiteContent" type="string" required="true"/>
-    <property name="emailContent" type="string" required="true"/>
-    <property name="websiteContentHtml" type="string" required="true"/>
-    <property name="emailContentHtml" type="string" required="true"/>
-    <property name="title" type="string" required="true"/>
-    <property name="id" type="string" required="true"/>
-  </entity>
-  <entity name="Tag">
-    <annotation name="EntityProperties">
-      <item name="EntityOriginalName">Tag</item>
-    </annotation>
-    <annotation name="service Group">
-      <item name="service">Deals</item>
-    </annotation>
-    <annotation name="ServerProperties">
-      <item name="IncludeRemoteClass">nonempty</item>
-    </annotation>
-    <annotation name="ActionScriptGeneration">
-      <item name="Package">valueObjects</item>
-    </annotation>
-    <property name="name" type="string" required="true"/>
   </entity>
   <entity name="Division">
     <annotation name="EntityProperties">
       <item name="EntityOriginalName">Division</item>
     </annotation>
     <annotation name="service Group">
-      <item name="service">Deals</item>
+      <item name="service">GrouponService</item>
     </annotation>
     <annotation name="ServerProperties">
       <item name="IncludeRemoteClass">nonempty</item>
@@ -355,17 +500,17 @@
     </annotation>
     <property name="lng" type="string" required="true"/>
     <property name="timezone" type="string" required="true"/>
-    <property name="timezoneOffsetInSeconds" type="string" required="true"/>
     <property name="name" type="string" required="true"/>
     <property name="id" type="string" required="true"/>
     <property name="lat" type="string" required="true"/>
+    <property name="timezoneOffsetInSeconds" type="string" required="true"/>
   </entity>
   <entity name="Price">
     <annotation name="EntityProperties">
       <item name="EntityOriginalName">Price</item>
     </annotation>
     <annotation name="service Group">
-      <item name="service">Deals</item>
+      <item name="service">GrouponService</item>
     </annotation>
     <annotation name="ServerProperties">
       <item name="IncludeRemoteClass">nonempty</item>
@@ -377,12 +522,12 @@
     <property name="currencyCode" type="string" required="true"/>
     <property name="formattedAmount" type="string" required="true"/>
   </entity>
-  <entity name="Discount">
+  <entity name="RedemptionLocation">
     <annotation name="EntityProperties">
-      <item name="EntityOriginalName">Discount</item>
+      <item name="EntityOriginalName">RedemptionLocation</item>
     </annotation>
     <annotation name="service Group">
-      <item name="service">Deals</item>
+      <item name="service">GrouponService</item>
     </annotation>
     <annotation name="ServerProperties">
       <item name="IncludeRemoteClass">nonempty</item>
@@ -390,8 +535,13 @@
     <annotation name="ActionScriptGeneration">
       <item name="Package">valueObjects</item>
     </annotation>
-    <property name="amount" type="string" required="true"/>
-    <property name="currencyCode" type="string" required="true"/>
-    <property name="formattedAmount" type="string" required="true"/>
+    <property name="postalCode" type="string" required="true"/>
+    <property name="lng" type="string" required="true"/>
+    <property name="streetAddress2" type="string" required="true"/>
+    <property name="city" type="string" required="true"/>
+    <property name="state" type="string" required="true"/>
+    <property name="name" type="string" required="true"/>
+    <property name="lat" type="string" required="true"/>
+    <property name="streetAddress1" type="string" required="true"/>
   </entity>
 </model>

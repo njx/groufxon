@@ -1,9 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<views:PlatformSwitchingView
-	xmlns:fx="http://ns.adobe.com/mxml/2009" 
-	xmlns:s="library://ns.adobe.com/flex/spark" 
-	xmlns:views="views.*"
-	title="Discussion">
+<views:PlatformSwitchingView xmlns:fx="http://ns.adobe.com/mxml/2009"
+							 xmlns:s="library://ns.adobe.com/flex/spark"
+							 xmlns:views="views.*"
+							 xmlns:grouponservice="services.grouponservice.*"
+							 title="Discussion"
+							 viewActivate="handleViewActivate()" xmlns:components="components.*">
+	<!-- TODO:
+		Show "no discussions" when there are no discussions
+		Add fake "add post" box
+		Add scroll-to-top when click on ActionBar
+	-->
+	<fx:Declarations>
+		<s:CallResponder id="getDealDiscussionsResult" result="handleDiscussionsResult()"/>
+		<grouponservice:GrouponService id="grouponService"/>
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.IList;
+			
+			import spark.effects.Resize;
+			private function handleViewActivate(): void {
+				getDealDiscussions(String(data), Constants.CLIENT_ID);
+			}
+			
+			private function getDealDiscussions(deal_id:String, client_id:String):void
+			{
+				getDealDiscussionsResult.token = grouponService.getDealDiscussions(deal_id, client_id);
+			}
+			
+			private function handleDiscussionsResult(): void {
+				if (busyIndicator) {
+					busyIndicator.visible = false;
+					busyIndicator.includeInLayout = false;
+				}
+				var postList: IList = getDealDiscussionsResult.lastResult.posts.post;
+				if (postList == null || postList.length == 0) {
+					noDiscussionsLabel.visible = true;
+					noDiscussionsLabel.includeInLayout = true;
+				}
+			}
+			
+			private function handlePostInputBoxExpand(): void {
+				shield.visible = shield.includeInLayout = postInputBox.expanded;
+			}
+		]]>
+	</fx:Script>
+	
 	<views:states>
 		<s:State name="androidPhone" stateGroups="phone"/>
 		<s:State name="androidTablet" stateGroups="tablet"/>
@@ -12,6 +54,41 @@
 		<s:State name="playbookTablet" stateGroups="tablet,needsBackButton"/>
 	</views:states>
 	<views:navigationContent>
-		<s:Button includeIn="needsBackButton" label="Back" click="handleBackClick()"/>
+		<s:Button includeIn="needsBackButton" label="Deal" click="handleBackClick()"/>
 	</views:navigationContent>
+	
+	<!-- Main discussion list -->
+	<s:List left="0" top="53" right="0" bottom="0" dataProvider="{getDealDiscussionsResult.lastResult.posts.post}"
+			cacheAsBitmap="true">
+		<s:itemRenderer>
+			<fx:Component>
+				<s:IconItemRenderer mouseEnabled="false" mouseChildren="false" 
+									labelField="posterName" messageField="body" iconField="posterAvatar" 
+									iconWidth="50" iconHeight="50" verticalAlign="top"
+									iconPlaceholder="@Embed('assets/placeholder.png')"/>
+			</fx:Component>
+		</s:itemRenderer>
+	</s:List>
+	
+	<!-- Shield when post input box is expanded -->
+	<s:Group left="0" top="0" right="0" bottom="0" cacheAsBitmap="true">
+		<s:Rect id="shield" left="0" top="0" right="0" bottom="0" alpha="0.6" visible="false" includeInLayout="false">
+			<s:fill>
+				<s:SolidColor color="#000000"/>
+			</s:fill>
+		</s:Rect>
+	</s:Group>
+	
+	<!-- Post input box (overlaps list when expanded, so has to be in front) -->
+	<components:PostInputBox id="postInputBox" left="0" top="0" right="0" expand="handlePostInputBoxExpand()"/>
+	
+	<!-- Busy indicator -->
+	<s:Group id="busyIndicator" horizontalCenter="0" verticalCenter="0">
+		<s:BusyIndicator horizontalCenter="0" />
+		<s:Label text="Loading Discussions..." top="30" />
+	</s:Group>
+	
+	<!-- Empty indicator -->
+	<s:Label id="noDiscussionsLabel" text="No Discussions" horizontalCenter="0" verticalCenter="0" styleName="noDiscussionsLabel" 
+			 visible="false" includeInLayout="false"/>
 </views:PlatformSwitchingView>

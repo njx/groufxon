@@ -16,6 +16,7 @@ import valueObjects.Discount;
 import valueObjects.ExternalUrl;
 import valueObjects.InitialQuantity;
 import valueObjects.Price;
+import valueObjects.RedemptionLocations;
 import valueObjects.RemainingQuantity;
 import valueObjects.Value;
 import com.adobe.fiber.core.model_internal;
@@ -192,7 +193,7 @@ internal class _OptionEntityMetadata extends com.adobe.fiber.valueobjects.Abstra
         model_internal::propertyTypeMap["maximumPurchaseQuantity"] = "String";
         model_internal::propertyTypeMap["expiresAt"] = "String";
         model_internal::propertyTypeMap["details"] = "valueObjects.Details";
-        model_internal::propertyTypeMap["redemptionLocations"] = "String";
+        model_internal::propertyTypeMap["redemptionLocations"] = "valueObjects.RedemptionLocations";
         model_internal::propertyTypeMap["externalUrl"] = "valueObjects.ExternalUrl";
         model_internal::propertyTypeMap["customFields"] = "String";
         model_internal::propertyTypeMap["buyUrl"] = "String";
