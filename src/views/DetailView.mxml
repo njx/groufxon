@@ -14,8 +14,6 @@
 			
 			import mx.utils.StringUtil;
 			
-			import services.deals.Deals;
-			
 			import spark.components.supportClasses.StyleableTextField;
 			import spark.transitions.FlipViewTransition;
 			import spark.transitions.FlipViewTransitionMode;
@@ -113,7 +111,7 @@
 		<s:State name="playbookTablet" stateGroups="tablet"/>
 	</views:states>
 	<views:navigationContent>
-		<s:Button includeIn="iosPhone" label="Back" click="handleBackClick()"/>
+		<s:Button includeIn="iosPhone" label="Deals" click="handleBackClick()"/>
 	</views:navigationContent>
 	<views:actionContent>
 		<s:Button label="Buy" click="handleBuyClick()"/>
@@ -131,7 +129,7 @@
 				</s:Rect>
 				<s:Label text="{data.title}" styleName="detailTitle" left="15" right="15" top="15" bottom="45" />
 				<s:Label text="{data.soldQuantity} bought so far" styleName="detailBar" left="15" right="15" bottom="15"/>				
-				<s:Button right="5" bottom="7" label="Discuss" styleName="discussButton" height="30" minHeight="30" click="handleDiscussClick()"/>
+				<s:Button right="5" bottom="7" label="Discuss" styleName="smallButtonGreen" height="30" minHeight="30" click="handleDiscussClick()"/>
 			</s:Group>
 			<s:VGroup width="100%" paddingLeft="15" paddingTop="15" paddingRight="15" paddingBottom="15" horizontalAlign="center">
 	            <s:Image source="{data.largeImageUrl}" maxWidth.phone="{pitch.width}" height.phone="{width * 267 / 440}" width.tablet="440" height.tablet="267" enableLoadingState="true"/>

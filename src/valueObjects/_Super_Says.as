@@ -51,12 +51,12 @@ public class _Super_Says extends flash.events.EventDispatcher implements com.ado
     /**
      * properties
      */
-    private var _internal_websiteContent : String;
-    private var _internal_emailContent : String;
     private var _internal_websiteContentHtml : String;
     private var _internal_emailContentHtml : String;
     private var _internal_title : String;
+    private var _internal_websiteContent : String;
     private var _internal_id : String;
+    private var _internal_emailContent : String;
 
     private static var emptyArray:Array = new Array();
 
@@ -73,30 +73,18 @@ public class _Super_Says extends flash.events.EventDispatcher implements com.ado
         _model = new _SaysEntityMetadata(this);
 
         // Bind to own data or source properties for cache invalidation triggering
-        model_internal::_changeWatcherArray.push(mx.binding.utils.ChangeWatcher.watch(this, "websiteContent", model_internal::setterListenerWebsiteContent));
-        model_internal::_changeWatcherArray.push(mx.binding.utils.ChangeWatcher.watch(this, "emailContent", model_internal::setterListenerEmailContent));
         model_internal::_changeWatcherArray.push(mx.binding.utils.ChangeWatcher.watch(this, "websiteContentHtml", model_internal::setterListenerWebsiteContentHtml));
         model_internal::_changeWatcherArray.push(mx.binding.utils.ChangeWatcher.watch(this, "emailContentHtml", model_internal::setterListenerEmailContentHtml));
         model_internal::_changeWatcherArray.push(mx.binding.utils.ChangeWatcher.watch(this, "title", model_internal::setterListenerTitle));
+        model_internal::_changeWatcherArray.push(mx.binding.utils.ChangeWatcher.watch(this, "websiteContent", model_internal::setterListenerWebsiteContent));
         model_internal::_changeWatcherArray.push(mx.binding.utils.ChangeWatcher.watch(this, "id", model_internal::setterListenerId));
+        model_internal::_changeWatcherArray.push(mx.binding.utils.ChangeWatcher.watch(this, "emailContent", model_internal::setterListenerEmailContent));
 
     }
 
     /**
      * data/source property getters
      */
-
-    [Bindable(event="propertyChange")]
-    public function get websiteContent() : String
-    {
-        return _internal_websiteContent;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get emailContent() : String
-    {
-        return _internal_emailContent;
-    }
 
     [Bindable(event="propertyChange")]
     public function get websiteContentHtml() : String
@@ -117,9 +105,21 @@ public class _Super_Says extends flash.events.EventDispatcher implements com.ado
     }
 
     [Bindable(event="propertyChange")]
+    public function get websiteContent() : String
+    {
+        return _internal_websiteContent;
+    }
+
+    [Bindable(event="propertyChange")]
     public function get id() : String
     {
         return _internal_id;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get emailContent() : String
+    {
+        return _internal_emailContent;
     }
 
     public function clearAssociations() : void
@@ -129,26 +129,6 @@ public class _Super_Says extends flash.events.EventDispatcher implements com.ado
     /**
      * data/source property setters
      */
-
-    public function set websiteContent(value:String) : void
-    {
-        var oldValue:String = _internal_websiteContent;
-        if (oldValue !== value)
-        {
-            _internal_websiteContent = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "websiteContent", oldValue, _internal_websiteContent));
-        }
-    }
-
-    public function set emailContent(value:String) : void
-    {
-        var oldValue:String = _internal_emailContent;
-        if (oldValue !== value)
-        {
-            _internal_emailContent = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "emailContent", oldValue, _internal_emailContent));
-        }
-    }
 
     public function set websiteContentHtml(value:String) : void
     {
@@ -180,6 +160,16 @@ public class _Super_Says extends flash.events.EventDispatcher implements com.ado
         }
     }
 
+    public function set websiteContent(value:String) : void
+    {
+        var oldValue:String = _internal_websiteContent;
+        if (oldValue !== value)
+        {
+            _internal_websiteContent = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "websiteContent", oldValue, _internal_websiteContent));
+        }
+    }
+
     public function set id(value:String) : void
     {
         var oldValue:String = _internal_id;
@@ -187,6 +177,16 @@ public class _Super_Says extends flash.events.EventDispatcher implements com.ado
         {
             _internal_id = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "id", oldValue, _internal_id));
+        }
+    }
+
+    public function set emailContent(value:String) : void
+    {
+        var oldValue:String = _internal_emailContent;
+        if (oldValue !== value)
+        {
+            _internal_emailContent = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "emailContent", oldValue, _internal_emailContent));
         }
     }
 
@@ -201,16 +201,6 @@ public class _Super_Says extends flash.events.EventDispatcher implements com.ado
      *  - the validity of the property (and the containing entity) if the given data property has a length restriction.
      *  - the validity of the property (and the containing entity) if the given data property is required.
      */
-
-    model_internal function setterListenerWebsiteContent(value:flash.events.Event):void
-    {
-        _model.invalidateDependentOnWebsiteContent();
-    }
-
-    model_internal function setterListenerEmailContent(value:flash.events.Event):void
-    {
-        _model.invalidateDependentOnEmailContent();
-    }
 
     model_internal function setterListenerWebsiteContentHtml(value:flash.events.Event):void
     {
@@ -227,9 +217,19 @@ public class _Super_Says extends flash.events.EventDispatcher implements com.ado
         _model.invalidateDependentOnTitle();
     }
 
+    model_internal function setterListenerWebsiteContent(value:flash.events.Event):void
+    {
+        _model.invalidateDependentOnWebsiteContent();
+    }
+
     model_internal function setterListenerId(value:flash.events.Event):void
     {
         _model.invalidateDependentOnId();
+    }
+
+    model_internal function setterListenerEmailContent(value:flash.events.Event):void
+    {
+        _model.invalidateDependentOnEmailContent();
     }
 
 
@@ -253,16 +253,6 @@ public class _Super_Says extends flash.events.EventDispatcher implements com.ado
         var validationFailureMessages:Array = new Array();
 
         var propertyValidity:Boolean = true;
-        if (!_model.websiteContentIsValid)
-        {
-            propertyValidity = false;
-            com.adobe.fiber.util.FiberUtils.arrayAdd(validationFailureMessages, _model.model_internal::_websiteContentValidationFailureMessages);
-        }
-        if (!_model.emailContentIsValid)
-        {
-            propertyValidity = false;
-            com.adobe.fiber.util.FiberUtils.arrayAdd(validationFailureMessages, _model.model_internal::_emailContentValidationFailureMessages);
-        }
         if (!_model.websiteContentHtmlIsValid)
         {
             propertyValidity = false;
@@ -278,10 +268,20 @@ public class _Super_Says extends flash.events.EventDispatcher implements com.ado
             propertyValidity = false;
             com.adobe.fiber.util.FiberUtils.arrayAdd(validationFailureMessages, _model.model_internal::_titleValidationFailureMessages);
         }
+        if (!_model.websiteContentIsValid)
+        {
+            propertyValidity = false;
+            com.adobe.fiber.util.FiberUtils.arrayAdd(validationFailureMessages, _model.model_internal::_websiteContentValidationFailureMessages);
+        }
         if (!_model.idIsValid)
         {
             propertyValidity = false;
             com.adobe.fiber.util.FiberUtils.arrayAdd(validationFailureMessages, _model.model_internal::_idValidationFailureMessages);
+        }
+        if (!_model.emailContentIsValid)
+        {
+            propertyValidity = false;
+            com.adobe.fiber.util.FiberUtils.arrayAdd(validationFailureMessages, _model.model_internal::_emailContentValidationFailureMessages);
         }
 
         model_internal::_cacheInitialized_isValid = true;
@@ -362,60 +362,6 @@ public class _Super_Says extends flash.events.EventDispatcher implements com.ado
         }
     }
 
-    model_internal var _doValidationCacheOfWebsiteContent : Array = null;
-    model_internal var _doValidationLastValOfWebsiteContent : String;
-
-    model_internal function _doValidationForWebsiteContent(valueIn:Object):Array
-    {
-        var value : String = valueIn as String;
-
-        if (model_internal::_doValidationCacheOfWebsiteContent != null && model_internal::_doValidationLastValOfWebsiteContent == value)
-           return model_internal::_doValidationCacheOfWebsiteContent ;
-
-        _model.model_internal::_websiteContentIsValidCacheInitialized = true;
-        var validationFailures:Array = new Array();
-        var errorMessage:String;
-        var failure:Boolean;
-
-        var valRes:ValidationResult;
-        if (_model.isWebsiteContentAvailable && _internal_websiteContent == null)
-        {
-            validationFailures.push(new ValidationResult(true, "", "", "websiteContent is required"));
-        }
-
-        model_internal::_doValidationCacheOfWebsiteContent = validationFailures;
-        model_internal::_doValidationLastValOfWebsiteContent = value;
-
-        return validationFailures;
-    }
-    
-    model_internal var _doValidationCacheOfEmailContent : Array = null;
-    model_internal var _doValidationLastValOfEmailContent : String;
-
-    model_internal function _doValidationForEmailContent(valueIn:Object):Array
-    {
-        var value : String = valueIn as String;
-
-        if (model_internal::_doValidationCacheOfEmailContent != null && model_internal::_doValidationLastValOfEmailContent == value)
-           return model_internal::_doValidationCacheOfEmailContent ;
-
-        _model.model_internal::_emailContentIsValidCacheInitialized = true;
-        var validationFailures:Array = new Array();
-        var errorMessage:String;
-        var failure:Boolean;
-
-        var valRes:ValidationResult;
-        if (_model.isEmailContentAvailable && _internal_emailContent == null)
-        {
-            validationFailures.push(new ValidationResult(true, "", "", "emailContent is required"));
-        }
-
-        model_internal::_doValidationCacheOfEmailContent = validationFailures;
-        model_internal::_doValidationLastValOfEmailContent = value;
-
-        return validationFailures;
-    }
-    
     model_internal var _doValidationCacheOfWebsiteContentHtml : Array = null;
     model_internal var _doValidationLastValOfWebsiteContentHtml : String;
 
@@ -497,6 +443,33 @@ public class _Super_Says extends flash.events.EventDispatcher implements com.ado
         return validationFailures;
     }
     
+    model_internal var _doValidationCacheOfWebsiteContent : Array = null;
+    model_internal var _doValidationLastValOfWebsiteContent : String;
+
+    model_internal function _doValidationForWebsiteContent(valueIn:Object):Array
+    {
+        var value : String = valueIn as String;
+
+        if (model_internal::_doValidationCacheOfWebsiteContent != null && model_internal::_doValidationLastValOfWebsiteContent == value)
+           return model_internal::_doValidationCacheOfWebsiteContent ;
+
+        _model.model_internal::_websiteContentIsValidCacheInitialized = true;
+        var validationFailures:Array = new Array();
+        var errorMessage:String;
+        var failure:Boolean;
+
+        var valRes:ValidationResult;
+        if (_model.isWebsiteContentAvailable && _internal_websiteContent == null)
+        {
+            validationFailures.push(new ValidationResult(true, "", "", "websiteContent is required"));
+        }
+
+        model_internal::_doValidationCacheOfWebsiteContent = validationFailures;
+        model_internal::_doValidationLastValOfWebsiteContent = value;
+
+        return validationFailures;
+    }
+    
     model_internal var _doValidationCacheOfId : Array = null;
     model_internal var _doValidationLastValOfId : String;
 
@@ -520,6 +493,33 @@ public class _Super_Says extends flash.events.EventDispatcher implements com.ado
 
         model_internal::_doValidationCacheOfId = validationFailures;
         model_internal::_doValidationLastValOfId = value;
+
+        return validationFailures;
+    }
+    
+    model_internal var _doValidationCacheOfEmailContent : Array = null;
+    model_internal var _doValidationLastValOfEmailContent : String;
+
+    model_internal function _doValidationForEmailContent(valueIn:Object):Array
+    {
+        var value : String = valueIn as String;
+
+        if (model_internal::_doValidationCacheOfEmailContent != null && model_internal::_doValidationLastValOfEmailContent == value)
+           return model_internal::_doValidationCacheOfEmailContent ;
+
+        _model.model_internal::_emailContentIsValidCacheInitialized = true;
+        var validationFailures:Array = new Array();
+        var errorMessage:String;
+        var failure:Boolean;
+
+        var valRes:ValidationResult;
+        if (_model.isEmailContentAvailable && _internal_emailContent == null)
+        {
+            validationFailures.push(new ValidationResult(true, "", "", "emailContent is required"));
+        }
+
+        model_internal::_doValidationCacheOfEmailContent = validationFailures;
+        model_internal::_doValidationLastValOfEmailContent = value;
 
         return validationFailures;
     }

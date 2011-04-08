@@ -41,6 +41,8 @@ public class _Super_Options extends flash.events.EventDispatcher implements com.
         valueObjects.RemainingQuantity.initRemoteClassAliasSingleChild();
         valueObjects.Details.initRemoteClassAliasSingleChild();
         valueObjects.Detail.initRemoteClassAliasSingleChild();
+        valueObjects.RedemptionLocations.initRemoteClassAliasSingleChild();
+        valueObjects.RedemptionLocation.initRemoteClassAliasSingleChild();
         valueObjects.ExternalUrl.initRemoteClassAliasSingleChild();
     }
 

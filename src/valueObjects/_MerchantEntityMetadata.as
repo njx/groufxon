@@ -22,14 +22,14 @@ internal class _MerchantEntityMetadata extends com.adobe.fiber.valueobjects.Abst
 {
     private static var emptyArray:Array = new Array();
 
-    model_internal static var allProperties:Array = new Array("websiteUrl", "name", "id");
+    model_internal static var allProperties:Array = new Array("name", "websiteUrl", "id");
     model_internal static var allAssociationProperties:Array = new Array();
-    model_internal static var allRequiredProperties:Array = new Array("websiteUrl", "name", "id");
-    model_internal static var allAlwaysAvailableProperties:Array = new Array("websiteUrl", "name", "id");
+    model_internal static var allRequiredProperties:Array = new Array("name", "websiteUrl", "id");
+    model_internal static var allAlwaysAvailableProperties:Array = new Array("name", "websiteUrl", "id");
     model_internal static var guardedProperties:Array = new Array();
-    model_internal static var dataProperties:Array = new Array("websiteUrl", "name", "id");
+    model_internal static var dataProperties:Array = new Array("name", "websiteUrl", "id");
     model_internal static var sourceProperties:Array = emptyArray
-    model_internal static var nonDerivedProperties:Array = new Array("websiteUrl", "name", "id");
+    model_internal static var nonDerivedProperties:Array = new Array("name", "websiteUrl", "id");
     model_internal static var derivedProperties:Array = new Array();
     model_internal static var collectionProperties:Array = new Array();
     model_internal static var collectionBaseMap:Object;
@@ -39,15 +39,15 @@ internal class _MerchantEntityMetadata extends com.adobe.fiber.valueobjects.Abst
     model_internal static var propertyTypeMap:Object;
 
     
-    model_internal var _websiteUrlIsValid:Boolean;
-    model_internal var _websiteUrlValidator:com.adobe.fiber.styles.StyleValidator;
-    model_internal var _websiteUrlIsValidCacheInitialized:Boolean = false;
-    model_internal var _websiteUrlValidationFailureMessages:Array;
-    
     model_internal var _nameIsValid:Boolean;
     model_internal var _nameValidator:com.adobe.fiber.styles.StyleValidator;
     model_internal var _nameIsValidCacheInitialized:Boolean = false;
     model_internal var _nameValidationFailureMessages:Array;
+    
+    model_internal var _websiteUrlIsValid:Boolean;
+    model_internal var _websiteUrlValidator:com.adobe.fiber.styles.StyleValidator;
+    model_internal var _websiteUrlIsValidCacheInitialized:Boolean = false;
+    model_internal var _websiteUrlValidationFailureMessages:Array;
     
     model_internal var _idIsValid:Boolean;
     model_internal var _idValidator:com.adobe.fiber.styles.StyleValidator;
@@ -64,8 +64,8 @@ internal class _MerchantEntityMetadata extends com.adobe.fiber.valueobjects.Abst
         {
             // dependents map
             model_internal::dependentsOnMap = new Object();
-            model_internal::dependentsOnMap["websiteUrl"] = new Array();
             model_internal::dependentsOnMap["name"] = new Array();
+            model_internal::dependentsOnMap["websiteUrl"] = new Array();
             model_internal::dependentsOnMap["id"] = new Array();
 
             // collection base map
@@ -74,21 +74,21 @@ internal class _MerchantEntityMetadata extends com.adobe.fiber.valueobjects.Abst
 
         // Property type Map
         model_internal::propertyTypeMap = new Object();
-        model_internal::propertyTypeMap["websiteUrl"] = "String";
         model_internal::propertyTypeMap["name"] = "String";
+        model_internal::propertyTypeMap["websiteUrl"] = "String";
         model_internal::propertyTypeMap["id"] = "String";
 
         model_internal::_instance = value;
-        model_internal::_websiteUrlValidator = new StyleValidator(model_internal::_instance.model_internal::_doValidationForWebsiteUrl);
-        model_internal::_websiteUrlValidator.required = true;
-        model_internal::_websiteUrlValidator.requiredFieldError = "websiteUrl is required";
-        //model_internal::_websiteUrlValidator.source = model_internal::_instance;
-        //model_internal::_websiteUrlValidator.property = "websiteUrl";
         model_internal::_nameValidator = new StyleValidator(model_internal::_instance.model_internal::_doValidationForName);
         model_internal::_nameValidator.required = true;
         model_internal::_nameValidator.requiredFieldError = "name is required";
         //model_internal::_nameValidator.source = model_internal::_instance;
         //model_internal::_nameValidator.property = "name";
+        model_internal::_websiteUrlValidator = new StyleValidator(model_internal::_instance.model_internal::_doValidationForWebsiteUrl);
+        model_internal::_websiteUrlValidator.required = true;
+        model_internal::_websiteUrlValidator.requiredFieldError = "websiteUrl is required";
+        //model_internal::_websiteUrlValidator.source = model_internal::_instance;
+        //model_internal::_websiteUrlValidator.property = "websiteUrl";
         model_internal::_idValidator = new StyleValidator(model_internal::_instance.model_internal::_doValidationForId);
         model_internal::_idValidator.required = true;
         model_internal::_idValidator.requiredFieldError = "id is required";
@@ -321,13 +321,13 @@ internal class _MerchantEntityMetadata extends com.adobe.fiber.valueobjects.Abst
     }
 
     [Bindable(event="propertyChange")]
-    public function get isWebsiteUrlAvailable():Boolean
+    public function get isNameAvailable():Boolean
     {
         return true;
     }
 
     [Bindable(event="propertyChange")]
-    public function get isNameAvailable():Boolean
+    public function get isWebsiteUrlAvailable():Boolean
     {
         return true;
     }
@@ -342,20 +342,20 @@ internal class _MerchantEntityMetadata extends com.adobe.fiber.valueobjects.Abst
     /**
      * derived property recalculation
      */
-    public function invalidateDependentOnWebsiteUrl():void
-    {
-        if (model_internal::_websiteUrlIsValidCacheInitialized )
-        {
-            model_internal::_instance.model_internal::_doValidationCacheOfWebsiteUrl = null;
-            model_internal::calculateWebsiteUrlIsValid();
-        }
-    }
     public function invalidateDependentOnName():void
     {
         if (model_internal::_nameIsValidCacheInitialized )
         {
             model_internal::_instance.model_internal::_doValidationCacheOfName = null;
             model_internal::calculateNameIsValid();
+        }
+    }
+    public function invalidateDependentOnWebsiteUrl():void
+    {
+        if (model_internal::_websiteUrlIsValidCacheInitialized )
+        {
+            model_internal::_instance.model_internal::_doValidationCacheOfWebsiteUrl = null;
+            model_internal::calculateWebsiteUrlIsValid();
         }
     }
     public function invalidateDependentOnId():void
@@ -370,106 +370,6 @@ internal class _MerchantEntityMetadata extends com.adobe.fiber.valueobjects.Abst
     model_internal function fireChangeEvent(propertyName:String, oldValue:Object, newValue:Object):void
     {
         this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, propertyName, oldValue, newValue));
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get websiteUrlStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    public function get websiteUrlValidator() : StyleValidator
-    {
-        return model_internal::_websiteUrlValidator;
-    }
-
-    model_internal function set _websiteUrlIsValid_der(value:Boolean):void 
-    {
-        var oldValue:Boolean = model_internal::_websiteUrlIsValid;         
-        if (oldValue !== value)
-        {
-            model_internal::_websiteUrlIsValid = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "websiteUrlIsValid", oldValue, value));
-        }                             
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get websiteUrlIsValid():Boolean
-    {
-        if (!model_internal::_websiteUrlIsValidCacheInitialized)
-        {
-            model_internal::calculateWebsiteUrlIsValid();
-        }
-
-        return model_internal::_websiteUrlIsValid;
-    }
-
-    model_internal function calculateWebsiteUrlIsValid():void
-    {
-        var valRes:ValidationResultEvent = model_internal::_websiteUrlValidator.validate(model_internal::_instance.websiteUrl)
-        model_internal::_websiteUrlIsValid_der = (valRes.results == null);
-        model_internal::_websiteUrlIsValidCacheInitialized = true;
-        if (valRes.results == null)
-             model_internal::websiteUrlValidationFailureMessages_der = emptyArray;
-        else
-        {
-            var _valFailures:Array = new Array();
-            for (var a:int = 0 ; a<valRes.results.length ; a++)
-            {
-                _valFailures.push(valRes.results[a].errorMessage);
-            }
-            model_internal::websiteUrlValidationFailureMessages_der = _valFailures;
-        }
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get websiteUrlValidationFailureMessages():Array
-    {
-        if (model_internal::_websiteUrlValidationFailureMessages == null)
-            model_internal::calculateWebsiteUrlIsValid();
-
-        return _websiteUrlValidationFailureMessages;
-    }
-
-    model_internal function set websiteUrlValidationFailureMessages_der(value:Array) : void
-    {
-        var oldValue:Array = model_internal::_websiteUrlValidationFailureMessages;
-
-        var needUpdate : Boolean = false;
-        if (oldValue == null)
-            needUpdate = true;
-    
-        // avoid firing the event when old and new value are different empty arrays
-        if (!needUpdate && (oldValue !== value && (oldValue.length > 0 || value.length > 0)))
-        {
-            if (oldValue.length == value.length)
-            {
-                for (var a:int=0; a < oldValue.length; a++)
-                {
-                    if (oldValue[a] !== value[a])
-                    {
-                        needUpdate = true;
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                needUpdate = true;
-            }
-        }
-
-        if (needUpdate)
-        {
-            model_internal::_websiteUrlValidationFailureMessages = value;   
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "websiteUrlValidationFailureMessages", oldValue, value));
-            // Only execute calculateIsValid if it has been called before, to update the validationFailureMessages for
-            // the entire entity.
-            if (model_internal::_instance.model_internal::_cacheInitialized_isValid)
-            {
-                model_internal::_instance.model_internal::isValid_der = model_internal::_instance.model_internal::calculateIsValid();
-            }
-        }
     }
 
     [Bindable(event="propertyChange")]   
@@ -563,6 +463,106 @@ internal class _MerchantEntityMetadata extends com.adobe.fiber.valueobjects.Abst
         {
             model_internal::_nameValidationFailureMessages = value;   
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "nameValidationFailureMessages", oldValue, value));
+            // Only execute calculateIsValid if it has been called before, to update the validationFailureMessages for
+            // the entire entity.
+            if (model_internal::_instance.model_internal::_cacheInitialized_isValid)
+            {
+                model_internal::_instance.model_internal::isValid_der = model_internal::_instance.model_internal::calculateIsValid();
+            }
+        }
+    }
+
+    [Bindable(event="propertyChange")]   
+    public function get websiteUrlStyle():com.adobe.fiber.styles.Style
+    {
+        return model_internal::_nullStyle;
+    }
+
+    public function get websiteUrlValidator() : StyleValidator
+    {
+        return model_internal::_websiteUrlValidator;
+    }
+
+    model_internal function set _websiteUrlIsValid_der(value:Boolean):void 
+    {
+        var oldValue:Boolean = model_internal::_websiteUrlIsValid;         
+        if (oldValue !== value)
+        {
+            model_internal::_websiteUrlIsValid = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "websiteUrlIsValid", oldValue, value));
+        }                             
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get websiteUrlIsValid():Boolean
+    {
+        if (!model_internal::_websiteUrlIsValidCacheInitialized)
+        {
+            model_internal::calculateWebsiteUrlIsValid();
+        }
+
+        return model_internal::_websiteUrlIsValid;
+    }
+
+    model_internal function calculateWebsiteUrlIsValid():void
+    {
+        var valRes:ValidationResultEvent = model_internal::_websiteUrlValidator.validate(model_internal::_instance.websiteUrl)
+        model_internal::_websiteUrlIsValid_der = (valRes.results == null);
+        model_internal::_websiteUrlIsValidCacheInitialized = true;
+        if (valRes.results == null)
+             model_internal::websiteUrlValidationFailureMessages_der = emptyArray;
+        else
+        {
+            var _valFailures:Array = new Array();
+            for (var a:int = 0 ; a<valRes.results.length ; a++)
+            {
+                _valFailures.push(valRes.results[a].errorMessage);
+            }
+            model_internal::websiteUrlValidationFailureMessages_der = _valFailures;
+        }
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get websiteUrlValidationFailureMessages():Array
+    {
+        if (model_internal::_websiteUrlValidationFailureMessages == null)
+            model_internal::calculateWebsiteUrlIsValid();
+
+        return _websiteUrlValidationFailureMessages;
+    }
+
+    model_internal function set websiteUrlValidationFailureMessages_der(value:Array) : void
+    {
+        var oldValue:Array = model_internal::_websiteUrlValidationFailureMessages;
+
+        var needUpdate : Boolean = false;
+        if (oldValue == null)
+            needUpdate = true;
+    
+        // avoid firing the event when old and new value are different empty arrays
+        if (!needUpdate && (oldValue !== value && (oldValue.length > 0 || value.length > 0)))
+        {
+            if (oldValue.length == value.length)
+            {
+                for (var a:int=0; a < oldValue.length; a++)
+                {
+                    if (oldValue[a] !== value[a])
+                    {
+                        needUpdate = true;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                needUpdate = true;
+            }
+        }
+
+        if (needUpdate)
+        {
+            model_internal::_websiteUrlValidationFailureMessages = value;   
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "websiteUrlValidationFailureMessages", oldValue, value));
             // Only execute calculateIsValid if it has been called before, to update the validationFailureMessages for
             // the entire entity.
             if (model_internal::_instance.model_internal::_cacheInitialized_isValid)
@@ -697,13 +697,13 @@ internal class _MerchantEntityMetadata extends com.adobe.fiber.valueobjects.Abst
      {
          switch(propertyName)
          {
-            case("websiteUrl"):
-            {
-                return websiteUrlValidationFailureMessages;
-            }
             case("name"):
             {
                 return nameValidationFailureMessages;
+            }
+            case("websiteUrl"):
+            {
+                return websiteUrlValidationFailureMessages;
             }
             case("id"):
             {

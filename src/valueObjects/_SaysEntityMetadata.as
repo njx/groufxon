@@ -22,14 +22,14 @@ internal class _SaysEntityMetadata extends com.adobe.fiber.valueobjects.Abstract
 {
     private static var emptyArray:Array = new Array();
 
-    model_internal static var allProperties:Array = new Array("websiteContent", "emailContent", "websiteContentHtml", "emailContentHtml", "title", "id");
+    model_internal static var allProperties:Array = new Array("websiteContentHtml", "emailContentHtml", "title", "websiteContent", "id", "emailContent");
     model_internal static var allAssociationProperties:Array = new Array();
-    model_internal static var allRequiredProperties:Array = new Array("websiteContent", "emailContent", "websiteContentHtml", "emailContentHtml", "title", "id");
-    model_internal static var allAlwaysAvailableProperties:Array = new Array("websiteContent", "emailContent", "websiteContentHtml", "emailContentHtml", "title", "id");
+    model_internal static var allRequiredProperties:Array = new Array("websiteContentHtml", "emailContentHtml", "title", "websiteContent", "id", "emailContent");
+    model_internal static var allAlwaysAvailableProperties:Array = new Array("websiteContentHtml", "emailContentHtml", "title", "websiteContent", "id", "emailContent");
     model_internal static var guardedProperties:Array = new Array();
-    model_internal static var dataProperties:Array = new Array("websiteContent", "emailContent", "websiteContentHtml", "emailContentHtml", "title", "id");
+    model_internal static var dataProperties:Array = new Array("websiteContentHtml", "emailContentHtml", "title", "websiteContent", "id", "emailContent");
     model_internal static var sourceProperties:Array = emptyArray
-    model_internal static var nonDerivedProperties:Array = new Array("websiteContent", "emailContent", "websiteContentHtml", "emailContentHtml", "title", "id");
+    model_internal static var nonDerivedProperties:Array = new Array("websiteContentHtml", "emailContentHtml", "title", "websiteContent", "id", "emailContent");
     model_internal static var derivedProperties:Array = new Array();
     model_internal static var collectionProperties:Array = new Array();
     model_internal static var collectionBaseMap:Object;
@@ -38,16 +38,6 @@ internal class _SaysEntityMetadata extends com.adobe.fiber.valueobjects.Abstract
     model_internal static var dependedOnServices:Array = new Array();
     model_internal static var propertyTypeMap:Object;
 
-    
-    model_internal var _websiteContentIsValid:Boolean;
-    model_internal var _websiteContentValidator:com.adobe.fiber.styles.StyleValidator;
-    model_internal var _websiteContentIsValidCacheInitialized:Boolean = false;
-    model_internal var _websiteContentValidationFailureMessages:Array;
-    
-    model_internal var _emailContentIsValid:Boolean;
-    model_internal var _emailContentValidator:com.adobe.fiber.styles.StyleValidator;
-    model_internal var _emailContentIsValidCacheInitialized:Boolean = false;
-    model_internal var _emailContentValidationFailureMessages:Array;
     
     model_internal var _websiteContentHtmlIsValid:Boolean;
     model_internal var _websiteContentHtmlValidator:com.adobe.fiber.styles.StyleValidator;
@@ -64,10 +54,20 @@ internal class _SaysEntityMetadata extends com.adobe.fiber.valueobjects.Abstract
     model_internal var _titleIsValidCacheInitialized:Boolean = false;
     model_internal var _titleValidationFailureMessages:Array;
     
+    model_internal var _websiteContentIsValid:Boolean;
+    model_internal var _websiteContentValidator:com.adobe.fiber.styles.StyleValidator;
+    model_internal var _websiteContentIsValidCacheInitialized:Boolean = false;
+    model_internal var _websiteContentValidationFailureMessages:Array;
+    
     model_internal var _idIsValid:Boolean;
     model_internal var _idValidator:com.adobe.fiber.styles.StyleValidator;
     model_internal var _idIsValidCacheInitialized:Boolean = false;
     model_internal var _idValidationFailureMessages:Array;
+    
+    model_internal var _emailContentIsValid:Boolean;
+    model_internal var _emailContentValidator:com.adobe.fiber.styles.StyleValidator;
+    model_internal var _emailContentIsValidCacheInitialized:Boolean = false;
+    model_internal var _emailContentValidationFailureMessages:Array;
 
     model_internal var _instance:_Super_Says;
     model_internal static var _nullStyle:com.adobe.fiber.styles.Style = new com.adobe.fiber.styles.Style();
@@ -79,12 +79,12 @@ internal class _SaysEntityMetadata extends com.adobe.fiber.valueobjects.Abstract
         {
             // dependents map
             model_internal::dependentsOnMap = new Object();
-            model_internal::dependentsOnMap["websiteContent"] = new Array();
-            model_internal::dependentsOnMap["emailContent"] = new Array();
             model_internal::dependentsOnMap["websiteContentHtml"] = new Array();
             model_internal::dependentsOnMap["emailContentHtml"] = new Array();
             model_internal::dependentsOnMap["title"] = new Array();
+            model_internal::dependentsOnMap["websiteContent"] = new Array();
             model_internal::dependentsOnMap["id"] = new Array();
+            model_internal::dependentsOnMap["emailContent"] = new Array();
 
             // collection base map
             model_internal::collectionBaseMap = new Object();
@@ -92,24 +92,14 @@ internal class _SaysEntityMetadata extends com.adobe.fiber.valueobjects.Abstract
 
         // Property type Map
         model_internal::propertyTypeMap = new Object();
-        model_internal::propertyTypeMap["websiteContent"] = "String";
-        model_internal::propertyTypeMap["emailContent"] = "String";
         model_internal::propertyTypeMap["websiteContentHtml"] = "String";
         model_internal::propertyTypeMap["emailContentHtml"] = "String";
         model_internal::propertyTypeMap["title"] = "String";
+        model_internal::propertyTypeMap["websiteContent"] = "String";
         model_internal::propertyTypeMap["id"] = "String";
+        model_internal::propertyTypeMap["emailContent"] = "String";
 
         model_internal::_instance = value;
-        model_internal::_websiteContentValidator = new StyleValidator(model_internal::_instance.model_internal::_doValidationForWebsiteContent);
-        model_internal::_websiteContentValidator.required = true;
-        model_internal::_websiteContentValidator.requiredFieldError = "websiteContent is required";
-        //model_internal::_websiteContentValidator.source = model_internal::_instance;
-        //model_internal::_websiteContentValidator.property = "websiteContent";
-        model_internal::_emailContentValidator = new StyleValidator(model_internal::_instance.model_internal::_doValidationForEmailContent);
-        model_internal::_emailContentValidator.required = true;
-        model_internal::_emailContentValidator.requiredFieldError = "emailContent is required";
-        //model_internal::_emailContentValidator.source = model_internal::_instance;
-        //model_internal::_emailContentValidator.property = "emailContent";
         model_internal::_websiteContentHtmlValidator = new StyleValidator(model_internal::_instance.model_internal::_doValidationForWebsiteContentHtml);
         model_internal::_websiteContentHtmlValidator.required = true;
         model_internal::_websiteContentHtmlValidator.requiredFieldError = "websiteContentHtml is required";
@@ -125,11 +115,21 @@ internal class _SaysEntityMetadata extends com.adobe.fiber.valueobjects.Abstract
         model_internal::_titleValidator.requiredFieldError = "title is required";
         //model_internal::_titleValidator.source = model_internal::_instance;
         //model_internal::_titleValidator.property = "title";
+        model_internal::_websiteContentValidator = new StyleValidator(model_internal::_instance.model_internal::_doValidationForWebsiteContent);
+        model_internal::_websiteContentValidator.required = true;
+        model_internal::_websiteContentValidator.requiredFieldError = "websiteContent is required";
+        //model_internal::_websiteContentValidator.source = model_internal::_instance;
+        //model_internal::_websiteContentValidator.property = "websiteContent";
         model_internal::_idValidator = new StyleValidator(model_internal::_instance.model_internal::_doValidationForId);
         model_internal::_idValidator.required = true;
         model_internal::_idValidator.requiredFieldError = "id is required";
         //model_internal::_idValidator.source = model_internal::_instance;
         //model_internal::_idValidator.property = "id";
+        model_internal::_emailContentValidator = new StyleValidator(model_internal::_instance.model_internal::_doValidationForEmailContent);
+        model_internal::_emailContentValidator.required = true;
+        model_internal::_emailContentValidator.requiredFieldError = "emailContent is required";
+        //model_internal::_emailContentValidator.source = model_internal::_instance;
+        //model_internal::_emailContentValidator.property = "emailContent";
     }
 
     override public function getEntityName():String
@@ -357,18 +357,6 @@ internal class _SaysEntityMetadata extends com.adobe.fiber.valueobjects.Abstract
     }
 
     [Bindable(event="propertyChange")]
-    public function get isWebsiteContentAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isEmailContentAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get isWebsiteContentHtmlAvailable():Boolean
     {
         return true;
@@ -387,7 +375,19 @@ internal class _SaysEntityMetadata extends com.adobe.fiber.valueobjects.Abstract
     }
 
     [Bindable(event="propertyChange")]
+    public function get isWebsiteContentAvailable():Boolean
+    {
+        return true;
+    }
+
+    [Bindable(event="propertyChange")]
     public function get isIdAvailable():Boolean
+    {
+        return true;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get isEmailContentAvailable():Boolean
     {
         return true;
     }
@@ -396,22 +396,6 @@ internal class _SaysEntityMetadata extends com.adobe.fiber.valueobjects.Abstract
     /**
      * derived property recalculation
      */
-    public function invalidateDependentOnWebsiteContent():void
-    {
-        if (model_internal::_websiteContentIsValidCacheInitialized )
-        {
-            model_internal::_instance.model_internal::_doValidationCacheOfWebsiteContent = null;
-            model_internal::calculateWebsiteContentIsValid();
-        }
-    }
-    public function invalidateDependentOnEmailContent():void
-    {
-        if (model_internal::_emailContentIsValidCacheInitialized )
-        {
-            model_internal::_instance.model_internal::_doValidationCacheOfEmailContent = null;
-            model_internal::calculateEmailContentIsValid();
-        }
-    }
     public function invalidateDependentOnWebsiteContentHtml():void
     {
         if (model_internal::_websiteContentHtmlIsValidCacheInitialized )
@@ -436,6 +420,14 @@ internal class _SaysEntityMetadata extends com.adobe.fiber.valueobjects.Abstract
             model_internal::calculateTitleIsValid();
         }
     }
+    public function invalidateDependentOnWebsiteContent():void
+    {
+        if (model_internal::_websiteContentIsValidCacheInitialized )
+        {
+            model_internal::_instance.model_internal::_doValidationCacheOfWebsiteContent = null;
+            model_internal::calculateWebsiteContentIsValid();
+        }
+    }
     public function invalidateDependentOnId():void
     {
         if (model_internal::_idIsValidCacheInitialized )
@@ -444,210 +436,18 @@ internal class _SaysEntityMetadata extends com.adobe.fiber.valueobjects.Abstract
             model_internal::calculateIdIsValid();
         }
     }
+    public function invalidateDependentOnEmailContent():void
+    {
+        if (model_internal::_emailContentIsValidCacheInitialized )
+        {
+            model_internal::_instance.model_internal::_doValidationCacheOfEmailContent = null;
+            model_internal::calculateEmailContentIsValid();
+        }
+    }
 
     model_internal function fireChangeEvent(propertyName:String, oldValue:Object, newValue:Object):void
     {
         this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, propertyName, oldValue, newValue));
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get websiteContentStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    public function get websiteContentValidator() : StyleValidator
-    {
-        return model_internal::_websiteContentValidator;
-    }
-
-    model_internal function set _websiteContentIsValid_der(value:Boolean):void 
-    {
-        var oldValue:Boolean = model_internal::_websiteContentIsValid;         
-        if (oldValue !== value)
-        {
-            model_internal::_websiteContentIsValid = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "websiteContentIsValid", oldValue, value));
-        }                             
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get websiteContentIsValid():Boolean
-    {
-        if (!model_internal::_websiteContentIsValidCacheInitialized)
-        {
-            model_internal::calculateWebsiteContentIsValid();
-        }
-
-        return model_internal::_websiteContentIsValid;
-    }
-
-    model_internal function calculateWebsiteContentIsValid():void
-    {
-        var valRes:ValidationResultEvent = model_internal::_websiteContentValidator.validate(model_internal::_instance.websiteContent)
-        model_internal::_websiteContentIsValid_der = (valRes.results == null);
-        model_internal::_websiteContentIsValidCacheInitialized = true;
-        if (valRes.results == null)
-             model_internal::websiteContentValidationFailureMessages_der = emptyArray;
-        else
-        {
-            var _valFailures:Array = new Array();
-            for (var a:int = 0 ; a<valRes.results.length ; a++)
-            {
-                _valFailures.push(valRes.results[a].errorMessage);
-            }
-            model_internal::websiteContentValidationFailureMessages_der = _valFailures;
-        }
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get websiteContentValidationFailureMessages():Array
-    {
-        if (model_internal::_websiteContentValidationFailureMessages == null)
-            model_internal::calculateWebsiteContentIsValid();
-
-        return _websiteContentValidationFailureMessages;
-    }
-
-    model_internal function set websiteContentValidationFailureMessages_der(value:Array) : void
-    {
-        var oldValue:Array = model_internal::_websiteContentValidationFailureMessages;
-
-        var needUpdate : Boolean = false;
-        if (oldValue == null)
-            needUpdate = true;
-    
-        // avoid firing the event when old and new value are different empty arrays
-        if (!needUpdate && (oldValue !== value && (oldValue.length > 0 || value.length > 0)))
-        {
-            if (oldValue.length == value.length)
-            {
-                for (var a:int=0; a < oldValue.length; a++)
-                {
-                    if (oldValue[a] !== value[a])
-                    {
-                        needUpdate = true;
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                needUpdate = true;
-            }
-        }
-
-        if (needUpdate)
-        {
-            model_internal::_websiteContentValidationFailureMessages = value;   
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "websiteContentValidationFailureMessages", oldValue, value));
-            // Only execute calculateIsValid if it has been called before, to update the validationFailureMessages for
-            // the entire entity.
-            if (model_internal::_instance.model_internal::_cacheInitialized_isValid)
-            {
-                model_internal::_instance.model_internal::isValid_der = model_internal::_instance.model_internal::calculateIsValid();
-            }
-        }
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get emailContentStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    public function get emailContentValidator() : StyleValidator
-    {
-        return model_internal::_emailContentValidator;
-    }
-
-    model_internal function set _emailContentIsValid_der(value:Boolean):void 
-    {
-        var oldValue:Boolean = model_internal::_emailContentIsValid;         
-        if (oldValue !== value)
-        {
-            model_internal::_emailContentIsValid = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "emailContentIsValid", oldValue, value));
-        }                             
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get emailContentIsValid():Boolean
-    {
-        if (!model_internal::_emailContentIsValidCacheInitialized)
-        {
-            model_internal::calculateEmailContentIsValid();
-        }
-
-        return model_internal::_emailContentIsValid;
-    }
-
-    model_internal function calculateEmailContentIsValid():void
-    {
-        var valRes:ValidationResultEvent = model_internal::_emailContentValidator.validate(model_internal::_instance.emailContent)
-        model_internal::_emailContentIsValid_der = (valRes.results == null);
-        model_internal::_emailContentIsValidCacheInitialized = true;
-        if (valRes.results == null)
-             model_internal::emailContentValidationFailureMessages_der = emptyArray;
-        else
-        {
-            var _valFailures:Array = new Array();
-            for (var a:int = 0 ; a<valRes.results.length ; a++)
-            {
-                _valFailures.push(valRes.results[a].errorMessage);
-            }
-            model_internal::emailContentValidationFailureMessages_der = _valFailures;
-        }
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get emailContentValidationFailureMessages():Array
-    {
-        if (model_internal::_emailContentValidationFailureMessages == null)
-            model_internal::calculateEmailContentIsValid();
-
-        return _emailContentValidationFailureMessages;
-    }
-
-    model_internal function set emailContentValidationFailureMessages_der(value:Array) : void
-    {
-        var oldValue:Array = model_internal::_emailContentValidationFailureMessages;
-
-        var needUpdate : Boolean = false;
-        if (oldValue == null)
-            needUpdate = true;
-    
-        // avoid firing the event when old and new value are different empty arrays
-        if (!needUpdate && (oldValue !== value && (oldValue.length > 0 || value.length > 0)))
-        {
-            if (oldValue.length == value.length)
-            {
-                for (var a:int=0; a < oldValue.length; a++)
-                {
-                    if (oldValue[a] !== value[a])
-                    {
-                        needUpdate = true;
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                needUpdate = true;
-            }
-        }
-
-        if (needUpdate)
-        {
-            model_internal::_emailContentValidationFailureMessages = value;   
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "emailContentValidationFailureMessages", oldValue, value));
-            // Only execute calculateIsValid if it has been called before, to update the validationFailureMessages for
-            // the entire entity.
-            if (model_internal::_instance.model_internal::_cacheInitialized_isValid)
-            {
-                model_internal::_instance.model_internal::isValid_der = model_internal::_instance.model_internal::calculateIsValid();
-            }
-        }
     }
 
     [Bindable(event="propertyChange")]   
@@ -951,6 +751,106 @@ internal class _SaysEntityMetadata extends com.adobe.fiber.valueobjects.Abstract
     }
 
     [Bindable(event="propertyChange")]   
+    public function get websiteContentStyle():com.adobe.fiber.styles.Style
+    {
+        return model_internal::_nullStyle;
+    }
+
+    public function get websiteContentValidator() : StyleValidator
+    {
+        return model_internal::_websiteContentValidator;
+    }
+
+    model_internal function set _websiteContentIsValid_der(value:Boolean):void 
+    {
+        var oldValue:Boolean = model_internal::_websiteContentIsValid;         
+        if (oldValue !== value)
+        {
+            model_internal::_websiteContentIsValid = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "websiteContentIsValid", oldValue, value));
+        }                             
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get websiteContentIsValid():Boolean
+    {
+        if (!model_internal::_websiteContentIsValidCacheInitialized)
+        {
+            model_internal::calculateWebsiteContentIsValid();
+        }
+
+        return model_internal::_websiteContentIsValid;
+    }
+
+    model_internal function calculateWebsiteContentIsValid():void
+    {
+        var valRes:ValidationResultEvent = model_internal::_websiteContentValidator.validate(model_internal::_instance.websiteContent)
+        model_internal::_websiteContentIsValid_der = (valRes.results == null);
+        model_internal::_websiteContentIsValidCacheInitialized = true;
+        if (valRes.results == null)
+             model_internal::websiteContentValidationFailureMessages_der = emptyArray;
+        else
+        {
+            var _valFailures:Array = new Array();
+            for (var a:int = 0 ; a<valRes.results.length ; a++)
+            {
+                _valFailures.push(valRes.results[a].errorMessage);
+            }
+            model_internal::websiteContentValidationFailureMessages_der = _valFailures;
+        }
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get websiteContentValidationFailureMessages():Array
+    {
+        if (model_internal::_websiteContentValidationFailureMessages == null)
+            model_internal::calculateWebsiteContentIsValid();
+
+        return _websiteContentValidationFailureMessages;
+    }
+
+    model_internal function set websiteContentValidationFailureMessages_der(value:Array) : void
+    {
+        var oldValue:Array = model_internal::_websiteContentValidationFailureMessages;
+
+        var needUpdate : Boolean = false;
+        if (oldValue == null)
+            needUpdate = true;
+    
+        // avoid firing the event when old and new value are different empty arrays
+        if (!needUpdate && (oldValue !== value && (oldValue.length > 0 || value.length > 0)))
+        {
+            if (oldValue.length == value.length)
+            {
+                for (var a:int=0; a < oldValue.length; a++)
+                {
+                    if (oldValue[a] !== value[a])
+                    {
+                        needUpdate = true;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                needUpdate = true;
+            }
+        }
+
+        if (needUpdate)
+        {
+            model_internal::_websiteContentValidationFailureMessages = value;   
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "websiteContentValidationFailureMessages", oldValue, value));
+            // Only execute calculateIsValid if it has been called before, to update the validationFailureMessages for
+            // the entire entity.
+            if (model_internal::_instance.model_internal::_cacheInitialized_isValid)
+            {
+                model_internal::_instance.model_internal::isValid_der = model_internal::_instance.model_internal::calculateIsValid();
+            }
+        }
+    }
+
+    [Bindable(event="propertyChange")]   
     public function get idStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
@@ -1050,6 +950,106 @@ internal class _SaysEntityMetadata extends com.adobe.fiber.valueobjects.Abstract
         }
     }
 
+    [Bindable(event="propertyChange")]   
+    public function get emailContentStyle():com.adobe.fiber.styles.Style
+    {
+        return model_internal::_nullStyle;
+    }
+
+    public function get emailContentValidator() : StyleValidator
+    {
+        return model_internal::_emailContentValidator;
+    }
+
+    model_internal function set _emailContentIsValid_der(value:Boolean):void 
+    {
+        var oldValue:Boolean = model_internal::_emailContentIsValid;         
+        if (oldValue !== value)
+        {
+            model_internal::_emailContentIsValid = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "emailContentIsValid", oldValue, value));
+        }                             
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get emailContentIsValid():Boolean
+    {
+        if (!model_internal::_emailContentIsValidCacheInitialized)
+        {
+            model_internal::calculateEmailContentIsValid();
+        }
+
+        return model_internal::_emailContentIsValid;
+    }
+
+    model_internal function calculateEmailContentIsValid():void
+    {
+        var valRes:ValidationResultEvent = model_internal::_emailContentValidator.validate(model_internal::_instance.emailContent)
+        model_internal::_emailContentIsValid_der = (valRes.results == null);
+        model_internal::_emailContentIsValidCacheInitialized = true;
+        if (valRes.results == null)
+             model_internal::emailContentValidationFailureMessages_der = emptyArray;
+        else
+        {
+            var _valFailures:Array = new Array();
+            for (var a:int = 0 ; a<valRes.results.length ; a++)
+            {
+                _valFailures.push(valRes.results[a].errorMessage);
+            }
+            model_internal::emailContentValidationFailureMessages_der = _valFailures;
+        }
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get emailContentValidationFailureMessages():Array
+    {
+        if (model_internal::_emailContentValidationFailureMessages == null)
+            model_internal::calculateEmailContentIsValid();
+
+        return _emailContentValidationFailureMessages;
+    }
+
+    model_internal function set emailContentValidationFailureMessages_der(value:Array) : void
+    {
+        var oldValue:Array = model_internal::_emailContentValidationFailureMessages;
+
+        var needUpdate : Boolean = false;
+        if (oldValue == null)
+            needUpdate = true;
+    
+        // avoid firing the event when old and new value are different empty arrays
+        if (!needUpdate && (oldValue !== value && (oldValue.length > 0 || value.length > 0)))
+        {
+            if (oldValue.length == value.length)
+            {
+                for (var a:int=0; a < oldValue.length; a++)
+                {
+                    if (oldValue[a] !== value[a])
+                    {
+                        needUpdate = true;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                needUpdate = true;
+            }
+        }
+
+        if (needUpdate)
+        {
+            model_internal::_emailContentValidationFailureMessages = value;   
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "emailContentValidationFailureMessages", oldValue, value));
+            // Only execute calculateIsValid if it has been called before, to update the validationFailureMessages for
+            // the entire entity.
+            if (model_internal::_instance.model_internal::_cacheInitialized_isValid)
+            {
+                model_internal::_instance.model_internal::isValid_der = model_internal::_instance.model_internal::calculateIsValid();
+            }
+        }
+    }
+
 
      /**
      * 
@@ -1075,14 +1075,6 @@ internal class _SaysEntityMetadata extends com.adobe.fiber.valueobjects.Abstract
      {
          switch(propertyName)
          {
-            case("websiteContent"):
-            {
-                return websiteContentValidationFailureMessages;
-            }
-            case("emailContent"):
-            {
-                return emailContentValidationFailureMessages;
-            }
             case("websiteContentHtml"):
             {
                 return websiteContentHtmlValidationFailureMessages;
@@ -1095,9 +1087,17 @@ internal class _SaysEntityMetadata extends com.adobe.fiber.valueobjects.Abstract
             {
                 return titleValidationFailureMessages;
             }
+            case("websiteContent"):
+            {
+                return websiteContentValidationFailureMessages;
+            }
             case("id"):
             {
                 return idValidationFailureMessages;
+            }
+            case("emailContent"):
+            {
+                return emailContentValidationFailureMessages;
             }
             default:
             {

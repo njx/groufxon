@@ -19,6 +19,7 @@ import valueObjects.Discount;
 import valueObjects.ExternalUrl;
 import valueObjects.InitialQuantity;
 import valueObjects.Price;
+import valueObjects.RedemptionLocations;
 import valueObjects.RemainingQuantity;
 import valueObjects.Value;
 
@@ -46,6 +47,8 @@ public class _Super_Option extends flash.events.EventDispatcher implements com.a
         valueObjects.RemainingQuantity.initRemoteClassAliasSingleChild();
         valueObjects.Details.initRemoteClassAliasSingleChild();
         valueObjects.Detail.initRemoteClassAliasSingleChild();
+        valueObjects.RedemptionLocations.initRemoteClassAliasSingleChild();
+        valueObjects.RedemptionLocation.initRemoteClassAliasSingleChild();
         valueObjects.ExternalUrl.initRemoteClassAliasSingleChild();
     }
 
@@ -81,7 +84,7 @@ public class _Super_Option extends flash.events.EventDispatcher implements com.a
     private var _internal_maximumPurchaseQuantity : String;
     private var _internal_expiresAt : String;
     private var _internal_details : valueObjects.Details;
-    private var _internal_redemptionLocations : String;
+    private var _internal_redemptionLocations : valueObjects.RedemptionLocations;
     private var _internal_externalUrl : valueObjects.ExternalUrl;
     private var _internal_customFields : String;
     private var _internal_buyUrl : String;
@@ -218,7 +221,7 @@ public class _Super_Option extends flash.events.EventDispatcher implements com.a
     }
 
     [Bindable(event="propertyChange")]
-    public function get redemptionLocations() : String
+    public function get redemptionLocations() : valueObjects.RedemptionLocations
     {
         return _internal_redemptionLocations;
     }
@@ -399,9 +402,9 @@ public class _Super_Option extends flash.events.EventDispatcher implements com.a
         }
     }
 
-    public function set redemptionLocations(value:String) : void
+    public function set redemptionLocations(value:valueObjects.RedemptionLocations) : void
     {
-        var oldValue:String = _internal_redemptionLocations;
+        var oldValue:valueObjects.RedemptionLocations = _internal_redemptionLocations;
         if (oldValue !== value)
         {
             _internal_redemptionLocations = value;
@@ -1147,11 +1150,11 @@ public class _Super_Option extends flash.events.EventDispatcher implements com.a
     }
     
     model_internal var _doValidationCacheOfRedemptionLocations : Array = null;
-    model_internal var _doValidationLastValOfRedemptionLocations : String;
+    model_internal var _doValidationLastValOfRedemptionLocations : valueObjects.RedemptionLocations;
 
     model_internal function _doValidationForRedemptionLocations(valueIn:Object):Array
     {
-        var value : String = valueIn as String;
+        var value : valueObjects.RedemptionLocations = valueIn as valueObjects.RedemptionLocations;
 
         if (model_internal::_doValidationCacheOfRedemptionLocations != null && model_internal::_doValidationLastValOfRedemptionLocations == value)
            return model_internal::_doValidationCacheOfRedemptionLocations ;

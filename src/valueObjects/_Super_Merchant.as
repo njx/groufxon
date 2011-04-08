@@ -51,8 +51,8 @@ public class _Super_Merchant extends flash.events.EventDispatcher implements com
     /**
      * properties
      */
-    private var _internal_websiteUrl : String;
     private var _internal_name : String;
+    private var _internal_websiteUrl : String;
     private var _internal_id : String;
 
     private static var emptyArray:Array = new Array();
@@ -70,8 +70,8 @@ public class _Super_Merchant extends flash.events.EventDispatcher implements com
         _model = new _MerchantEntityMetadata(this);
 
         // Bind to own data or source properties for cache invalidation triggering
-        model_internal::_changeWatcherArray.push(mx.binding.utils.ChangeWatcher.watch(this, "websiteUrl", model_internal::setterListenerWebsiteUrl));
         model_internal::_changeWatcherArray.push(mx.binding.utils.ChangeWatcher.watch(this, "name", model_internal::setterListenerName));
+        model_internal::_changeWatcherArray.push(mx.binding.utils.ChangeWatcher.watch(this, "websiteUrl", model_internal::setterListenerWebsiteUrl));
         model_internal::_changeWatcherArray.push(mx.binding.utils.ChangeWatcher.watch(this, "id", model_internal::setterListenerId));
 
     }
@@ -81,15 +81,15 @@ public class _Super_Merchant extends flash.events.EventDispatcher implements com
      */
 
     [Bindable(event="propertyChange")]
-    public function get websiteUrl() : String
-    {
-        return _internal_websiteUrl;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get name() : String
     {
         return _internal_name;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get websiteUrl() : String
+    {
+        return _internal_websiteUrl;
     }
 
     [Bindable(event="propertyChange")]
@@ -106,16 +106,6 @@ public class _Super_Merchant extends flash.events.EventDispatcher implements com
      * data/source property setters
      */
 
-    public function set websiteUrl(value:String) : void
-    {
-        var oldValue:String = _internal_websiteUrl;
-        if (oldValue !== value)
-        {
-            _internal_websiteUrl = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "websiteUrl", oldValue, _internal_websiteUrl));
-        }
-    }
-
     public function set name(value:String) : void
     {
         var oldValue:String = _internal_name;
@@ -123,6 +113,16 @@ public class _Super_Merchant extends flash.events.EventDispatcher implements com
         {
             _internal_name = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "name", oldValue, _internal_name));
+        }
+    }
+
+    public function set websiteUrl(value:String) : void
+    {
+        var oldValue:String = _internal_websiteUrl;
+        if (oldValue !== value)
+        {
+            _internal_websiteUrl = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "websiteUrl", oldValue, _internal_websiteUrl));
         }
     }
 
@@ -148,14 +148,14 @@ public class _Super_Merchant extends flash.events.EventDispatcher implements com
      *  - the validity of the property (and the containing entity) if the given data property is required.
      */
 
-    model_internal function setterListenerWebsiteUrl(value:flash.events.Event):void
-    {
-        _model.invalidateDependentOnWebsiteUrl();
-    }
-
     model_internal function setterListenerName(value:flash.events.Event):void
     {
         _model.invalidateDependentOnName();
+    }
+
+    model_internal function setterListenerWebsiteUrl(value:flash.events.Event):void
+    {
+        _model.invalidateDependentOnWebsiteUrl();
     }
 
     model_internal function setterListenerId(value:flash.events.Event):void
@@ -184,15 +184,15 @@ public class _Super_Merchant extends flash.events.EventDispatcher implements com
         var validationFailureMessages:Array = new Array();
 
         var propertyValidity:Boolean = true;
-        if (!_model.websiteUrlIsValid)
-        {
-            propertyValidity = false;
-            com.adobe.fiber.util.FiberUtils.arrayAdd(validationFailureMessages, _model.model_internal::_websiteUrlValidationFailureMessages);
-        }
         if (!_model.nameIsValid)
         {
             propertyValidity = false;
             com.adobe.fiber.util.FiberUtils.arrayAdd(validationFailureMessages, _model.model_internal::_nameValidationFailureMessages);
+        }
+        if (!_model.websiteUrlIsValid)
+        {
+            propertyValidity = false;
+            com.adobe.fiber.util.FiberUtils.arrayAdd(validationFailureMessages, _model.model_internal::_websiteUrlValidationFailureMessages);
         }
         if (!_model.idIsValid)
         {
@@ -278,33 +278,6 @@ public class _Super_Merchant extends flash.events.EventDispatcher implements com
         }
     }
 
-    model_internal var _doValidationCacheOfWebsiteUrl : Array = null;
-    model_internal var _doValidationLastValOfWebsiteUrl : String;
-
-    model_internal function _doValidationForWebsiteUrl(valueIn:Object):Array
-    {
-        var value : String = valueIn as String;
-
-        if (model_internal::_doValidationCacheOfWebsiteUrl != null && model_internal::_doValidationLastValOfWebsiteUrl == value)
-           return model_internal::_doValidationCacheOfWebsiteUrl ;
-
-        _model.model_internal::_websiteUrlIsValidCacheInitialized = true;
-        var validationFailures:Array = new Array();
-        var errorMessage:String;
-        var failure:Boolean;
-
-        var valRes:ValidationResult;
-        if (_model.isWebsiteUrlAvailable && _internal_websiteUrl == null)
-        {
-            validationFailures.push(new ValidationResult(true, "", "", "websiteUrl is required"));
-        }
-
-        model_internal::_doValidationCacheOfWebsiteUrl = validationFailures;
-        model_internal::_doValidationLastValOfWebsiteUrl = value;
-
-        return validationFailures;
-    }
-    
     model_internal var _doValidationCacheOfName : Array = null;
     model_internal var _doValidationLastValOfName : String;
 
@@ -328,6 +301,33 @@ public class _Super_Merchant extends flash.events.EventDispatcher implements com
 
         model_internal::_doValidationCacheOfName = validationFailures;
         model_internal::_doValidationLastValOfName = value;
+
+        return validationFailures;
+    }
+    
+    model_internal var _doValidationCacheOfWebsiteUrl : Array = null;
+    model_internal var _doValidationLastValOfWebsiteUrl : String;
+
+    model_internal function _doValidationForWebsiteUrl(valueIn:Object):Array
+    {
+        var value : String = valueIn as String;
+
+        if (model_internal::_doValidationCacheOfWebsiteUrl != null && model_internal::_doValidationLastValOfWebsiteUrl == value)
+           return model_internal::_doValidationCacheOfWebsiteUrl ;
+
+        _model.model_internal::_websiteUrlIsValidCacheInitialized = true;
+        var validationFailures:Array = new Array();
+        var errorMessage:String;
+        var failure:Boolean;
+
+        var valRes:ValidationResult;
+        if (_model.isWebsiteUrlAvailable && _internal_websiteUrl == null)
+        {
+            validationFailures.push(new ValidationResult(true, "", "", "websiteUrl is required"));
+        }
+
+        model_internal::_doValidationCacheOfWebsiteUrl = validationFailures;
+        model_internal::_doValidationLastValOfWebsiteUrl = value;
 
         return validationFailures;
     }

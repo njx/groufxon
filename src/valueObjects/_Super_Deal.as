@@ -54,6 +54,8 @@ public class _Super_Deal extends flash.events.EventDispatcher implements com.ado
         valueObjects.RemainingQuantity.initRemoteClassAliasSingleChild();
         valueObjects.Details.initRemoteClassAliasSingleChild();
         valueObjects.Detail.initRemoteClassAliasSingleChild();
+        valueObjects.RedemptionLocations.initRemoteClassAliasSingleChild();
+        valueObjects.RedemptionLocation.initRemoteClassAliasSingleChild();
         valueObjects.ExternalUrl.initRemoteClassAliasSingleChild();
         valueObjects.Merchant.initRemoteClassAliasSingleChild();
         valueObjects.TextAd.initRemoteClassAliasSingleChild();

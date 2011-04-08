@@ -3,6 +3,8 @@
 IconItemRenderer.summary {
 	messageStyleName: message;
 	verticalGap: 8;
+	downColor: #41a3d7;
+	selectionColor: #41a3d7;
 }
 
 .message {
@@ -24,11 +26,21 @@ ActionBar {
 	color: #ffffff;
 }
 
-.discussButton {
+.smallButtonGreen {
 	fontSize: 12;
 	chromeColor: #89b556;
 	color: #ffffff;
 	textShadowColor: #000000;
+}
+
+.smallButtonGray {
+	fontSize: 12;
+}
+
+.noDiscussionsLabel {
+	fontSize: 30;
+	fontWeight: bold;
+	color: #cccccc;
 }
 
 @media (os-platform: "ios") {

@@ -3,18 +3,18 @@
         xmlns:s="library://ns.adobe.com/flex/spark"               
         xmlns:deals="services.deals.*"
         initialize="initializeHandler(event)"
-		currentState="listPhone">
+		currentState="listPhone" xmlns:valueObjects="valueObjects.*" xmlns:grouponservice="services.grouponservice.*">
     <!--
-    TODO:
-    add fault handler to Deals service
-	make label size smaller on phone
-	Ugly code for item renderers based on state. can we improve this? (maybe use bitmap for placeholder)
+	    TODO:
+	    add fault handler to Deals service
+		make label size smaller on phone
+		Ugly code for item renderers based on state. can we improve this? (maybe use bitmap for placeholder)
+		Add scroll-to-top when click on ActionBar?
     -->
     
     <fx:Declarations>
-        <s:CallResponder id="getDataResult"/>
-        <deals:Deals id="deals" result="deals_resultHandler()" />
-        <!-- Place non-visual elements (e.g., services, value objects) here -->
+        <s:CallResponder id="getDealsResult" result="deals_resultHandler()"/>
+        <grouponservice:GrouponService id="grouponService"/>
     </fx:Declarations>
 
     <fx:Metadata>
@@ -39,7 +39,6 @@
             private var geoloc:Geolocation = new Geolocation();
             
             // Variables used to access the Groupon API
-            private var client_id:String = "aef59cde704294ebd0f5f5984649b0a0172db517";
             private var lat:Number = 37.77136491;       // Default to coordinates of Adobe SF offics
             private var lng:Number = -122.40096462;
             private var radius:Number = 50;
@@ -84,8 +83,8 @@
                     busyIndicator.visible = busyIndicator.includeInLayout = false;
                 }
 
-				// Select the first deal so the user isn't starting at empty space.
-				if (currentState != 'listPhone' && IList(getDataResult.lastResult).length > 0) {
+				// On tablets, select the first deal so the user isn't starting at empty space.
+				if (currentState != 'listPhone' && IList(getDealsResult.lastResult.deals.deal).length > 0) {
 					list.selectedIndex = 0;
 					dispatchEvent(new IndexChangeEvent(IndexChangeEvent.CHANGE));
 				}
@@ -93,14 +92,14 @@
             
             protected function getDeals():void
             {
-                getDataResult.token = deals.getData(client_id, String(lat), String(lng), String(radius), show);
+                getDealsResult.token = grouponService.getDeals(Constants.CLIENT_ID, String(lat), String(lng), String(radius), show);
             }
             
         ]]>
     </fx:Script>
     
     <!-- Main list -->
-    <s:List id="list" left="0" top="0" right="0" bottom="0" dataProvider="{getDataResult.lastResult}" change="dispatchEvent(event);">
+    <s:List id="list" left="0" top="0" right="0" bottom="0" dataProvider="{getDealsResult.lastResult.deals.deal}" change="dispatchEvent(event)">
 		<s:layout.grid>
 			<s:TileLayout paddingLeft="5" paddingTop="5" paddingRight="5" paddingBottom="5"/>
 		</s:layout.grid>
@@ -108,42 +107,21 @@
             <fx:Component>
                 <s:IconItemRenderer styleName="summary" labelField="" messageField="announcementTitle" 
 									iconField="mediumImageUrl" iconWidth="100" iconHeight="61"
-									iconPlaceholder="{assets.LoadingIcon}">
-					<fx:Script>
-						<![CDATA[
-							import assets.LoadingIcon;
-						]]>
-					</fx:Script>
-				</s:IconItemRenderer>
-
+									iconPlaceholder="@Embed('assets/placeholder.png')"/>
             </fx:Component>
         </s:itemRenderer.listTablet>
 		<s:itemRenderer.listPhone>
 			<fx:Component>
 				<s:IconItemRenderer styleName="summary" labelField="" messageField="announcementTitle" 
 									iconField="smallImageUrl" iconWidth="50" iconHeight="30"
-									iconPlaceholder="{assets.LoadingIcon}">
-					<fx:Script>
-						<![CDATA[
-							import assets.LoadingIcon;
-						]]>
-					</fx:Script>
-				</s:IconItemRenderer>
-				
+									iconPlaceholder="@Embed('assets/placeholder.png')"/>
 			</fx:Component>
 		</s:itemRenderer.listPhone>
 		<s:itemRenderer.grid>
 			<fx:Component>
 				<s:IconItemRenderer styleName="summary" labelField=""
 									iconField="mediumImageUrl" iconWidth="100" iconHeight="61"
-									iconPlaceholder="{assets.LoadingIcon}">
-					<fx:Script>
-						<![CDATA[
-							import assets.LoadingIcon;
-						]]>
-					</fx:Script>
-				</s:IconItemRenderer>
-				
+									iconPlaceholder="@Embed('assets/placeholder.png')"/>
 			</fx:Component>
 		</s:itemRenderer.grid>    
 	</s:List>

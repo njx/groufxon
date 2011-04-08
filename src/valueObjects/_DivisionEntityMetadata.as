@@ -22,14 +22,14 @@ internal class _DivisionEntityMetadata extends com.adobe.fiber.valueobjects.Abst
 {
     private static var emptyArray:Array = new Array();
 
-    model_internal static var allProperties:Array = new Array("lng", "timezone", "timezoneOffsetInSeconds", "name", "id", "lat");
+    model_internal static var allProperties:Array = new Array("lng", "timezone", "name", "id", "lat", "timezoneOffsetInSeconds");
     model_internal static var allAssociationProperties:Array = new Array();
-    model_internal static var allRequiredProperties:Array = new Array("lng", "timezone", "timezoneOffsetInSeconds", "name", "id", "lat");
-    model_internal static var allAlwaysAvailableProperties:Array = new Array("lng", "timezone", "timezoneOffsetInSeconds", "name", "id", "lat");
+    model_internal static var allRequiredProperties:Array = new Array("lng", "timezone", "name", "id", "lat", "timezoneOffsetInSeconds");
+    model_internal static var allAlwaysAvailableProperties:Array = new Array("lng", "timezone", "name", "id", "lat", "timezoneOffsetInSeconds");
     model_internal static var guardedProperties:Array = new Array();
-    model_internal static var dataProperties:Array = new Array("lng", "timezone", "timezoneOffsetInSeconds", "name", "id", "lat");
+    model_internal static var dataProperties:Array = new Array("lng", "timezone", "name", "id", "lat", "timezoneOffsetInSeconds");
     model_internal static var sourceProperties:Array = emptyArray
-    model_internal static var nonDerivedProperties:Array = new Array("lng", "timezone", "timezoneOffsetInSeconds", "name", "id", "lat");
+    model_internal static var nonDerivedProperties:Array = new Array("lng", "timezone", "name", "id", "lat", "timezoneOffsetInSeconds");
     model_internal static var derivedProperties:Array = new Array();
     model_internal static var collectionProperties:Array = new Array();
     model_internal static var collectionBaseMap:Object;
@@ -49,11 +49,6 @@ internal class _DivisionEntityMetadata extends com.adobe.fiber.valueobjects.Abst
     model_internal var _timezoneIsValidCacheInitialized:Boolean = false;
     model_internal var _timezoneValidationFailureMessages:Array;
     
-    model_internal var _timezoneOffsetInSecondsIsValid:Boolean;
-    model_internal var _timezoneOffsetInSecondsValidator:com.adobe.fiber.styles.StyleValidator;
-    model_internal var _timezoneOffsetInSecondsIsValidCacheInitialized:Boolean = false;
-    model_internal var _timezoneOffsetInSecondsValidationFailureMessages:Array;
-    
     model_internal var _nameIsValid:Boolean;
     model_internal var _nameValidator:com.adobe.fiber.styles.StyleValidator;
     model_internal var _nameIsValidCacheInitialized:Boolean = false;
@@ -68,6 +63,11 @@ internal class _DivisionEntityMetadata extends com.adobe.fiber.valueobjects.Abst
     model_internal var _latValidator:com.adobe.fiber.styles.StyleValidator;
     model_internal var _latIsValidCacheInitialized:Boolean = false;
     model_internal var _latValidationFailureMessages:Array;
+    
+    model_internal var _timezoneOffsetInSecondsIsValid:Boolean;
+    model_internal var _timezoneOffsetInSecondsValidator:com.adobe.fiber.styles.StyleValidator;
+    model_internal var _timezoneOffsetInSecondsIsValidCacheInitialized:Boolean = false;
+    model_internal var _timezoneOffsetInSecondsValidationFailureMessages:Array;
 
     model_internal var _instance:_Super_Division;
     model_internal static var _nullStyle:com.adobe.fiber.styles.Style = new com.adobe.fiber.styles.Style();
@@ -81,10 +81,10 @@ internal class _DivisionEntityMetadata extends com.adobe.fiber.valueobjects.Abst
             model_internal::dependentsOnMap = new Object();
             model_internal::dependentsOnMap["lng"] = new Array();
             model_internal::dependentsOnMap["timezone"] = new Array();
-            model_internal::dependentsOnMap["timezoneOffsetInSeconds"] = new Array();
             model_internal::dependentsOnMap["name"] = new Array();
             model_internal::dependentsOnMap["id"] = new Array();
             model_internal::dependentsOnMap["lat"] = new Array();
+            model_internal::dependentsOnMap["timezoneOffsetInSeconds"] = new Array();
 
             // collection base map
             model_internal::collectionBaseMap = new Object();
@@ -94,10 +94,10 @@ internal class _DivisionEntityMetadata extends com.adobe.fiber.valueobjects.Abst
         model_internal::propertyTypeMap = new Object();
         model_internal::propertyTypeMap["lng"] = "String";
         model_internal::propertyTypeMap["timezone"] = "String";
-        model_internal::propertyTypeMap["timezoneOffsetInSeconds"] = "String";
         model_internal::propertyTypeMap["name"] = "String";
         model_internal::propertyTypeMap["id"] = "String";
         model_internal::propertyTypeMap["lat"] = "String";
+        model_internal::propertyTypeMap["timezoneOffsetInSeconds"] = "String";
 
         model_internal::_instance = value;
         model_internal::_lngValidator = new StyleValidator(model_internal::_instance.model_internal::_doValidationForLng);
@@ -110,11 +110,6 @@ internal class _DivisionEntityMetadata extends com.adobe.fiber.valueobjects.Abst
         model_internal::_timezoneValidator.requiredFieldError = "timezone is required";
         //model_internal::_timezoneValidator.source = model_internal::_instance;
         //model_internal::_timezoneValidator.property = "timezone";
-        model_internal::_timezoneOffsetInSecondsValidator = new StyleValidator(model_internal::_instance.model_internal::_doValidationForTimezoneOffsetInSeconds);
-        model_internal::_timezoneOffsetInSecondsValidator.required = true;
-        model_internal::_timezoneOffsetInSecondsValidator.requiredFieldError = "timezoneOffsetInSeconds is required";
-        //model_internal::_timezoneOffsetInSecondsValidator.source = model_internal::_instance;
-        //model_internal::_timezoneOffsetInSecondsValidator.property = "timezoneOffsetInSeconds";
         model_internal::_nameValidator = new StyleValidator(model_internal::_instance.model_internal::_doValidationForName);
         model_internal::_nameValidator.required = true;
         model_internal::_nameValidator.requiredFieldError = "name is required";
@@ -130,6 +125,11 @@ internal class _DivisionEntityMetadata extends com.adobe.fiber.valueobjects.Abst
         model_internal::_latValidator.requiredFieldError = "lat is required";
         //model_internal::_latValidator.source = model_internal::_instance;
         //model_internal::_latValidator.property = "lat";
+        model_internal::_timezoneOffsetInSecondsValidator = new StyleValidator(model_internal::_instance.model_internal::_doValidationForTimezoneOffsetInSeconds);
+        model_internal::_timezoneOffsetInSecondsValidator.required = true;
+        model_internal::_timezoneOffsetInSecondsValidator.requiredFieldError = "timezoneOffsetInSeconds is required";
+        //model_internal::_timezoneOffsetInSecondsValidator.source = model_internal::_instance;
+        //model_internal::_timezoneOffsetInSecondsValidator.property = "timezoneOffsetInSeconds";
     }
 
     override public function getEntityName():String
@@ -369,12 +369,6 @@ internal class _DivisionEntityMetadata extends com.adobe.fiber.valueobjects.Abst
     }
 
     [Bindable(event="propertyChange")]
-    public function get isTimezoneOffsetInSecondsAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get isNameAvailable():Boolean
     {
         return true;
@@ -388,6 +382,12 @@ internal class _DivisionEntityMetadata extends com.adobe.fiber.valueobjects.Abst
 
     [Bindable(event="propertyChange")]
     public function get isLatAvailable():Boolean
+    {
+        return true;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get isTimezoneOffsetInSecondsAvailable():Boolean
     {
         return true;
     }
@@ -412,14 +412,6 @@ internal class _DivisionEntityMetadata extends com.adobe.fiber.valueobjects.Abst
             model_internal::calculateTimezoneIsValid();
         }
     }
-    public function invalidateDependentOnTimezoneOffsetInSeconds():void
-    {
-        if (model_internal::_timezoneOffsetInSecondsIsValidCacheInitialized )
-        {
-            model_internal::_instance.model_internal::_doValidationCacheOfTimezoneOffsetInSeconds = null;
-            model_internal::calculateTimezoneOffsetInSecondsIsValid();
-        }
-    }
     public function invalidateDependentOnName():void
     {
         if (model_internal::_nameIsValidCacheInitialized )
@@ -442,6 +434,14 @@ internal class _DivisionEntityMetadata extends com.adobe.fiber.valueobjects.Abst
         {
             model_internal::_instance.model_internal::_doValidationCacheOfLat = null;
             model_internal::calculateLatIsValid();
+        }
+    }
+    public function invalidateDependentOnTimezoneOffsetInSeconds():void
+    {
+        if (model_internal::_timezoneOffsetInSecondsIsValidCacheInitialized )
+        {
+            model_internal::_instance.model_internal::_doValidationCacheOfTimezoneOffsetInSeconds = null;
+            model_internal::calculateTimezoneOffsetInSecondsIsValid();
         }
     }
 
@@ -641,106 +641,6 @@ internal class _DivisionEntityMetadata extends com.adobe.fiber.valueobjects.Abst
         {
             model_internal::_timezoneValidationFailureMessages = value;   
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "timezoneValidationFailureMessages", oldValue, value));
-            // Only execute calculateIsValid if it has been called before, to update the validationFailureMessages for
-            // the entire entity.
-            if (model_internal::_instance.model_internal::_cacheInitialized_isValid)
-            {
-                model_internal::_instance.model_internal::isValid_der = model_internal::_instance.model_internal::calculateIsValid();
-            }
-        }
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get timezoneOffsetInSecondsStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    public function get timezoneOffsetInSecondsValidator() : StyleValidator
-    {
-        return model_internal::_timezoneOffsetInSecondsValidator;
-    }
-
-    model_internal function set _timezoneOffsetInSecondsIsValid_der(value:Boolean):void 
-    {
-        var oldValue:Boolean = model_internal::_timezoneOffsetInSecondsIsValid;         
-        if (oldValue !== value)
-        {
-            model_internal::_timezoneOffsetInSecondsIsValid = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "timezoneOffsetInSecondsIsValid", oldValue, value));
-        }                             
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get timezoneOffsetInSecondsIsValid():Boolean
-    {
-        if (!model_internal::_timezoneOffsetInSecondsIsValidCacheInitialized)
-        {
-            model_internal::calculateTimezoneOffsetInSecondsIsValid();
-        }
-
-        return model_internal::_timezoneOffsetInSecondsIsValid;
-    }
-
-    model_internal function calculateTimezoneOffsetInSecondsIsValid():void
-    {
-        var valRes:ValidationResultEvent = model_internal::_timezoneOffsetInSecondsValidator.validate(model_internal::_instance.timezoneOffsetInSeconds)
-        model_internal::_timezoneOffsetInSecondsIsValid_der = (valRes.results == null);
-        model_internal::_timezoneOffsetInSecondsIsValidCacheInitialized = true;
-        if (valRes.results == null)
-             model_internal::timezoneOffsetInSecondsValidationFailureMessages_der = emptyArray;
-        else
-        {
-            var _valFailures:Array = new Array();
-            for (var a:int = 0 ; a<valRes.results.length ; a++)
-            {
-                _valFailures.push(valRes.results[a].errorMessage);
-            }
-            model_internal::timezoneOffsetInSecondsValidationFailureMessages_der = _valFailures;
-        }
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get timezoneOffsetInSecondsValidationFailureMessages():Array
-    {
-        if (model_internal::_timezoneOffsetInSecondsValidationFailureMessages == null)
-            model_internal::calculateTimezoneOffsetInSecondsIsValid();
-
-        return _timezoneOffsetInSecondsValidationFailureMessages;
-    }
-
-    model_internal function set timezoneOffsetInSecondsValidationFailureMessages_der(value:Array) : void
-    {
-        var oldValue:Array = model_internal::_timezoneOffsetInSecondsValidationFailureMessages;
-
-        var needUpdate : Boolean = false;
-        if (oldValue == null)
-            needUpdate = true;
-    
-        // avoid firing the event when old and new value are different empty arrays
-        if (!needUpdate && (oldValue !== value && (oldValue.length > 0 || value.length > 0)))
-        {
-            if (oldValue.length == value.length)
-            {
-                for (var a:int=0; a < oldValue.length; a++)
-                {
-                    if (oldValue[a] !== value[a])
-                    {
-                        needUpdate = true;
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                needUpdate = true;
-            }
-        }
-
-        if (needUpdate)
-        {
-            model_internal::_timezoneOffsetInSecondsValidationFailureMessages = value;   
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "timezoneOffsetInSecondsValidationFailureMessages", oldValue, value));
             // Only execute calculateIsValid if it has been called before, to update the validationFailureMessages for
             // the entire entity.
             if (model_internal::_instance.model_internal::_cacheInitialized_isValid)
@@ -1050,6 +950,106 @@ internal class _DivisionEntityMetadata extends com.adobe.fiber.valueobjects.Abst
         }
     }
 
+    [Bindable(event="propertyChange")]   
+    public function get timezoneOffsetInSecondsStyle():com.adobe.fiber.styles.Style
+    {
+        return model_internal::_nullStyle;
+    }
+
+    public function get timezoneOffsetInSecondsValidator() : StyleValidator
+    {
+        return model_internal::_timezoneOffsetInSecondsValidator;
+    }
+
+    model_internal function set _timezoneOffsetInSecondsIsValid_der(value:Boolean):void 
+    {
+        var oldValue:Boolean = model_internal::_timezoneOffsetInSecondsIsValid;         
+        if (oldValue !== value)
+        {
+            model_internal::_timezoneOffsetInSecondsIsValid = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "timezoneOffsetInSecondsIsValid", oldValue, value));
+        }                             
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get timezoneOffsetInSecondsIsValid():Boolean
+    {
+        if (!model_internal::_timezoneOffsetInSecondsIsValidCacheInitialized)
+        {
+            model_internal::calculateTimezoneOffsetInSecondsIsValid();
+        }
+
+        return model_internal::_timezoneOffsetInSecondsIsValid;
+    }
+
+    model_internal function calculateTimezoneOffsetInSecondsIsValid():void
+    {
+        var valRes:ValidationResultEvent = model_internal::_timezoneOffsetInSecondsValidator.validate(model_internal::_instance.timezoneOffsetInSeconds)
+        model_internal::_timezoneOffsetInSecondsIsValid_der = (valRes.results == null);
+        model_internal::_timezoneOffsetInSecondsIsValidCacheInitialized = true;
+        if (valRes.results == null)
+             model_internal::timezoneOffsetInSecondsValidationFailureMessages_der = emptyArray;
+        else
+        {
+            var _valFailures:Array = new Array();
+            for (var a:int = 0 ; a<valRes.results.length ; a++)
+            {
+                _valFailures.push(valRes.results[a].errorMessage);
+            }
+            model_internal::timezoneOffsetInSecondsValidationFailureMessages_der = _valFailures;
+        }
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get timezoneOffsetInSecondsValidationFailureMessages():Array
+    {
+        if (model_internal::_timezoneOffsetInSecondsValidationFailureMessages == null)
+            model_internal::calculateTimezoneOffsetInSecondsIsValid();
+
+        return _timezoneOffsetInSecondsValidationFailureMessages;
+    }
+
+    model_internal function set timezoneOffsetInSecondsValidationFailureMessages_der(value:Array) : void
+    {
+        var oldValue:Array = model_internal::_timezoneOffsetInSecondsValidationFailureMessages;
+
+        var needUpdate : Boolean = false;
+        if (oldValue == null)
+            needUpdate = true;
+    
+        // avoid firing the event when old and new value are different empty arrays
+        if (!needUpdate && (oldValue !== value && (oldValue.length > 0 || value.length > 0)))
+        {
+            if (oldValue.length == value.length)
+            {
+                for (var a:int=0; a < oldValue.length; a++)
+                {
+                    if (oldValue[a] !== value[a])
+                    {
+                        needUpdate = true;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                needUpdate = true;
+            }
+        }
+
+        if (needUpdate)
+        {
+            model_internal::_timezoneOffsetInSecondsValidationFailureMessages = value;   
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "timezoneOffsetInSecondsValidationFailureMessages", oldValue, value));
+            // Only execute calculateIsValid if it has been called before, to update the validationFailureMessages for
+            // the entire entity.
+            if (model_internal::_instance.model_internal::_cacheInitialized_isValid)
+            {
+                model_internal::_instance.model_internal::isValid_der = model_internal::_instance.model_internal::calculateIsValid();
+            }
+        }
+    }
+
 
      /**
      * 
@@ -1083,10 +1083,6 @@ internal class _DivisionEntityMetadata extends com.adobe.fiber.valueobjects.Abst
             {
                 return timezoneValidationFailureMessages;
             }
-            case("timezoneOffsetInSeconds"):
-            {
-                return timezoneOffsetInSecondsValidationFailureMessages;
-            }
             case("name"):
             {
                 return nameValidationFailureMessages;
@@ -1098,6 +1094,10 @@ internal class _DivisionEntityMetadata extends com.adobe.fiber.valueobjects.Abst
             case("lat"):
             {
                 return latValidationFailureMessages;
+            }
+            case("timezoneOffsetInSeconds"):
+            {
+                return timezoneOffsetInSecondsValidationFailureMessages;
             }
             default:
             {
