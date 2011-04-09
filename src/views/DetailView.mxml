@@ -47,11 +47,13 @@
 				if (value != null) {
 					updateTitle(null);
 					
-					if (_timer == null) {
-						_timer = new Timer(getTimeRemaining() < 86400 ? 1000 : 60000);
-						_timer.addEventListener(TimerEvent.TIMER, updateTitle);
-						_timer.start();
+					if (_timer != null) {
+						_timer.stop();
 					}
+					
+					_timer = new Timer(getTimeRemaining() < 86400 ? 1000 : 60000);
+					_timer.addEventListener(TimerEvent.TIMER, updateTitle);
+					_timer.start();
 				}
 			}			
 			
