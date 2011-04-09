@@ -79,7 +79,7 @@
 	<!-- Deal summary list -->
 	<!-- This is after the ViewNavigator so that its dropshadow will draw above the ViewNavigator. If we change it to use a bitmap we
 	can move it back to its natural position. -->
-	<s:ActionBar includeIn="tablet" top="0" left="0" right.portraitTablet="0" width.landscapeTablet="{LIST_WIDTH}" title="Groupon Deals">
+	<s:ActionBar includeIn="tablet" top="0" left="0" right.portraitTablet="0" width.landscapeTablet="{LIST_WIDTH}" title="Nearby Deals">
 		<s:actionContent>
 			<s:Button click="dealSummaryList.refresh()">
 				<s:icon>
