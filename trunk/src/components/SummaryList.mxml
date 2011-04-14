@@ -44,7 +44,8 @@
             private var radius:Number = 50;
             private var show:String = "all";
 			
-			public function refresh(): void {
+			public function refresh(): void 
+			{
 				if (busyIndicator)
 				{
 					busyIndicator.visible = busyIndicator.includeInLayout = true;
@@ -56,17 +57,18 @@
             private function initializeHandler(event:FlexEvent):void
             {
                 // If Geolocation is supported, use it. 
-                if (Geolocation.isSupported)
-                {
-                    geoloc.addEventListener(GeolocationEvent.UPDATE, geoloc_updateHandler);
-                }
-                else
+	            if (Geolocation.isSupported)
+	            {
+					 // TODO: timeout and use defaults
+	                 geoloc.addEventListener(GeolocationEvent.UPDATE, geoloc_updateHandler);
+	            }
+	            else
                 {
                     // get the deals now
                     refresh();
                 }
             }
-            
+  
             private function geoloc_updateHandler(event:GeolocationEvent):void
             {
                 lat = event.latitude;

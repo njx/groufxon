@@ -135,6 +135,13 @@
 		<image114x114></image114x114>
 		<image128x128></image128x128>
 	</icon> -->
+	
+	<icon>
+		<image57x57>assets/floupon-icon-57.png</image57x57>
+		<image72x72>assets/floupon-icon-72.png</image72x72>
+		<image114x114>assets/floupon-icon-114.png</image114x114>
+		<image128x128>assets/floupon-icon-128.png</image128x128>
+	</icon>
 
 	<!-- Whether the application handles the update when a user double-clicks an update version
 	of the AIR file (true), or the default AIR application installer handles the update (false).

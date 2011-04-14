@@ -3,9 +3,11 @@
                xmlns:s="library://ns.adobe.com/flex/spark"
                initialize="initializeHandler(event)"
 			   applicationDPI="160"
-               resize="resizeHandler(event)"
                xmlns:components="components.*"
-			   resizeForSoftKeyboard="false">
+			   resize="resizeHandler(event)"
+			   resizeForSoftKeyboard="false"
+			   splashScreenImage="@Embed('assets/floupon-splash-opt.png')"
+			   splashScreenScaleMode="zoom">
  	<!-- TODO: splash screen, icon -->
  	<fx:Style source="assets/styles.css"/>
     <fx:Script>
@@ -23,14 +25,21 @@
 
             private function initializeHandler(event:Event):void
             {
+				// Add event handlers for the Back button. This is necessary because we're not using ViewNavigatorApplication
+				// (which does this automatically)--we're using a plain Spark Application and hooking up our own
+				// ViewNavigator.
                 systemManager.stage.addEventListener(KeyboardEvent.KEY_DOWN, deviceKeyDownHandler);
                 systemManager.stage.addEventListener(KeyboardEvent.KEY_UP, deviceKeyUpHandler);
             }
             
-            private function resizeHandler(event:ResizeEvent):void
+			private function resizeHandler(event:ResizeEvent):void
             {
-                var isPortrait:Boolean = height > width;
-                var isTablet:Boolean = height > 960 || width > 960;
+				updateState(width, height);
+			}
+			
+			private function updateState(newWidth: Number, newHeight: Number): void {
+                var isPortrait:Boolean = newHeight > newWidth;
+                var isTablet:Boolean = newHeight > 960 || newWidth > 960;
                 
                currentState = (isPortrait ? "portrait" : "landscape") + (isTablet ? "Tablet" : "Phone");
             }  
@@ -58,7 +67,7 @@
                     mainNavigator.popView();
             }
 
-        ]]>
+		]]>
     </fx:Script>
     <s:states>
         <s:State name="landscapeTablet" stateGroups="landscape, tablet" />
@@ -68,7 +77,8 @@
     </s:states>
 	
 	<!-- ViewNavigator -->
-	<!-- The resize handler here is to work around a bug where ViewNavigator doesn't currently clip its children, so if
+	<!-- On phones, this fills the whole screen. On tablet, this is on the right (in landscape mode) or on the bottom (in portrait mode).
+		 The resize handler here is to work around a bug where ViewNavigator doesn't currently clip its children, so if
 		 it doesn't fill the whole screen, views sliding out of the navigator overlap other content. (SDK-29309) -->
 	<s:ViewNavigator id="mainNavigator" left="0" left.landscapeTablet="{LIST_WIDTH}" 
 					 top="0" top.portraitTablet="{ACTIONBAR_HEIGHT + LIST_HEIGHT}" 
@@ -76,10 +86,8 @@
 					 firstView="views.SummaryView" firstView.tablet="views.DetailView"
 					 resize="mainNavigator.scrollRect = new Rectangle(0, 0, mainNavigator.width, mainNavigator.height)"/>  
 	
-	<!-- Deal summary list -->
-	<!-- This is after the ViewNavigator so that its dropshadow will draw above the ViewNavigator. If we change it to use a bitmap we
-	can move it back to its natural position. -->
-	<s:ActionBar includeIn="tablet" top="0" left="0" right.portraitTablet="0" width.landscapeTablet="{LIST_WIDTH}" title="Nearby Deals">
+	<!-- ActionBar header over the deals list (only used in tablet mode) -->
+	<s:ActionBar id="listHeader" includeIn="tablet" top="0" left="0" right.portraitTablet="0" width.landscapeTablet="{LIST_WIDTH}" title="Nearby Deals">
 		<s:actionContent>
 			<s:Button click="dealSummaryList.refresh()">
 				<s:icon>
@@ -91,20 +99,16 @@
 			</s:Button>
 		</s:actionContent>
 	</s:ActionBar>
+
+	<!-- Deal summary list -->
 	<components:SummaryList id="dealSummaryList" includeIn="tablet" top="{ACTIONBAR_HEIGHT}" left="0" 
 							bottom.landscapeTablet="0" right.portraitTablet="0" 
 							width.landscapeTablet="{LIST_WIDTH}" height.portraitTablet="{LIST_HEIGHT}"
 							change="mainNavigator.replaceView(views.DetailView, dealSummaryList.list.selectedItem, null, new CrossFadeViewTransition())"
-							currentState="{currentState == 'portraitTablet' ? 'grid' : (currentState == 'landscapeTablet' ? 'listTablet' : 'listPhone')}">
-		<components:filters>
-			<s:DropShadowFilter angle.landscapeTablet="0" blurX.landscapeTablet="4" blurY.landscapeTablet="0" 
-								angle.portraitTablet="90" blurX.portraitTablet="0" blurY.portraitTablet="4"
-								strength="1" alpha="0.3"/>
-		</components:filters>
-	</components:SummaryList>
+							currentState="{currentState == 'portraitTablet' ? 'grid' : (currentState == 'landscapeTablet' ? 'listTablet' : 'listPhone')}"/>
 	
 	<!-- Vertical separator between summary list and view navigator in tablet landscape mode -->
-	<s:Line includeIn="landscapeTablet" top="0" bottom="0" left="{LIST_WIDTH}">
+	<s:Line id="separator" includeIn="landscapeTablet" top="0" bottom="0" left="{LIST_WIDTH}">
 		<s:stroke>
 			<s:SolidColorStroke color="#666666"/>
 		</s:stroke>
